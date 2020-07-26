@@ -9,4 +9,8 @@ public class Person {
         // add work schedule down the line?
     }
 
+    public String getName() {
+        return name;
+    }
+
 }

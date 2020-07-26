@@ -9,11 +9,10 @@ import java.util.SimpleTimeZone;
 
 
 public class MasterTask {
-    String name; // creator name
+    //String name; // creator name
     String projectTitle;
     String projectDetails;
     ArrayList<SubTask> assignedTasks;
-    ArrayList<Person> assignedPersons;
 
     // EFFECTS: Constructs a MasterTask with a title, an empty list of SubTasks
     public MasterTask(String title) {
@@ -38,17 +37,13 @@ public class MasterTask {
         return projectDetails;
     }
 
+
     // MODIFIES: this, assignedTasks
     // EFFECTS: adds a subtask to the parents assignedTasks list
     public void addSubTask(SubTask subtask) {
         assignedTasks.add(subtask);
     }
 
-    // MODIFIES: this, assignedPersons
-    // EFFECTS: adds a person to the parents assignedTasks list
-    public void addPerson(Person person) {
-        assignedPersons.add(person);
-    }
 
     // EFFECTS: returns task title
     public String getTitle() {

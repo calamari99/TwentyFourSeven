@@ -10,7 +10,7 @@ class MasterTaskTest {
     MasterTask testTask1;
     MasterTask testTask2;
 
-    @BeforeEach()
+    @BeforeEach
     void runBefore() {
         testTask1 = new MasterTask("");
         testTask2 = new MasterTask("testingMasterTask");

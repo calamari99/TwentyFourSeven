@@ -1,4 +1,41 @@
 package model;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+
 public class SubTaskTest {
+
+    SubTask subTask1;
+    SubTask subTask2;
+    Person person1;
+    Person person2;
+
+    @BeforeEach
+    void runBefore() {
+        subTask1 = new SubTask("",1);
+        subTask2 = new SubTask("test",2);
+        person1 = new Person("Lilo");
+        person2 = new Person("Stitch");
+    }
+
+    @Test
+    void testConstructor() {
+        assertEquals(subTask1.getTitle(),"");
+        assertEquals(subTask2.getTitle(),"test");
+
+        assertEquals(subTask1.getTaskNum(),1);
+        assertEquals(subTask2.getTaskNum(),2);
+    }
+
+    @Test
+    void testAddPerson() {
+        assertTrue(subTask1.addPerson(person1)); // empty -> not empty
+        assertTrue(subTask1.addPerson(person1)); // adding to not empty
+
+    }
+
+
+
 }

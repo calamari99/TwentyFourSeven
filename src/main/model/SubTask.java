@@ -58,8 +58,9 @@ public class SubTask extends MasterTask {
     }
 
     // EFFECTS: sets isDone to true
-    public void setDone() {
+    public Boolean setDone() {
         isDone = true;
+        return isDone;
     }
 
     public int getTeamSize() {

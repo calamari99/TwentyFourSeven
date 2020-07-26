@@ -17,7 +17,7 @@ class MasterTaskTest {
     }
 
     @Test
-    void testMasterTask(){
+    void testMasterTaskConstructor(){
         assertEquals(testTask1.getTitle(),"");
         assertEquals(testTask2.getTitle(),"testingMasterTask");
     }
@@ -33,9 +33,4 @@ class MasterTaskTest {
         testTask1.setProjectDetails("");
         assertEquals(testTask1.getProjectDetails(), ""); //not empty -> empty (makeshift way of deleting details)
     }
-
-/*    @Test
-    void addSubTask() {
-        testTask1.addSubTask();
-    }*/
 }

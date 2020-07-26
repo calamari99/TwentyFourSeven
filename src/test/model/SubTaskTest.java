@@ -21,7 +21,7 @@ public class SubTaskTest {
     }
 
     @Test
-    void testConstructor() {
+    void testSubTaskConstructor() {
         assertEquals(subTask1.getTitle(),"");
         assertEquals(subTask2.getTitle(),"test");
 
@@ -36,6 +36,24 @@ public class SubTaskTest {
 
     }
 
+    @Test
+    void testGetTaskNum() {
+        assertEquals(subTask1.getTaskNum(),1);
+        assertEquals(subTask2.getTaskNum(),2);
+    }
+
+    @Test
+    void testSetDone() {
+        assertTrue(subTask1.setDone());
+    }
+
+    @Test
+    void testGetTeamSize() {
+        subTask1.addPerson(person1);
+        assertEquals(subTask1.getTeamSize(),1);
+        subTask1.addPerson(person1);
+        assertEquals(subTask1.getTeamSize(),2);
+    }
 
 
 }

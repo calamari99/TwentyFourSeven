@@ -35,12 +35,6 @@ public class SubTaskTest {
         assertTrue(subTask1.addPerson(person1)); // adding to not empty
     }
 
-/*    @Test
-    void testGetTaskNum() {
-        assertEquals(subTask1.getTaskNum(),1);
-        assertEquals(subTask2.getTaskNum(),2);
-    }*/
-
     @Test
     void testSetDone() {
         assertTrue(subTask1.setDone());
@@ -54,11 +48,11 @@ public class SubTaskTest {
         assertEquals(subTask1.getTeamSize(),2);
     }
 
-    //run separately since id is incrementing based on constructor calls
+    // testGetSubTaskId is the last test called, thus BeforeEach has been called 6 times before this test runs
     @Test
     void testGetSubTaskId() {
-        assertEquals(subTask1.getSubTaskId(),1);
-        assertEquals(subTask2.getSubTaskId(),2);
+        assertEquals(subTask1.getSubTaskId(),7);
+        assertEquals(subTask2.getSubTaskId(),8);
     }
 
 }

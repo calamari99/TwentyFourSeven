@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class SubTask extends MasterTask {
-    int taskNum;
     String taskDetails;
     private final int subTaskId;
     private static final AtomicInteger id = new AtomicInteger(0); //initializes at 0
@@ -38,8 +37,8 @@ public class SubTask extends MasterTask {
         return ((assignedPersons.get(m - 1) == person));
     }
 
-
-    // MODIFIES: this
+// needs to be tested + implemented
+/*    // MODIFIES: this
     // EFFECTS: returns list of Names under a task
     public ArrayList<String> teamNames() {
         ArrayList<String> teamMemberNames = new ArrayList<String>();
@@ -50,12 +49,8 @@ public class SubTask extends MasterTask {
             }
         }
         return teamMemberNames;
-    }
+    }*/
 
-    // EFFECTS: returns taskNum
-    public int getTaskNum() {
-        return taskNum;
-    }
 
     // EFFECTS: sets isDone to true
     public Boolean setDone() {
@@ -68,6 +63,7 @@ public class SubTask extends MasterTask {
         return assignedPersons.size();
     }
 
+    // EFFECTS: returns subTaskId
     public int getSubTaskId() {
         return subTaskId;
     }

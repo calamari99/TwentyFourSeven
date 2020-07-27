@@ -9,7 +9,6 @@ public class PersonTest {
     Person p1;
     Person p2;
 
-
     @BeforeEach
     void runBefore() {
         p1 = new Person("");

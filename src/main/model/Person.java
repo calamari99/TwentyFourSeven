@@ -8,7 +8,6 @@ public class Person {
     private static final AtomicInteger id = new AtomicInteger(0); // initializes at 0
     // https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicInteger.html
 
-
     // MODIFIES: this, name
     // EFFECT: creates a new person with a given name
     public Person(String name) {

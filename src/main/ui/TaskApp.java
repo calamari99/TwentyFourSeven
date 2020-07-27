@@ -5,6 +5,7 @@ import model.Person;
 import model.SubTask;
 
 import java.util.Scanner;
+// TaskApp methods class is taken after Teller
 
 public class TaskApp {
     // How would you create a new variable every time the createXYZ method is called?
@@ -42,6 +43,7 @@ public class TaskApp {
         System.out.println("session has ended");
     }
 
+    // EFFECTS: Prints completion of an added master task and prompts master name
     private void addMasterTask() {
         System.out.println("added Master Task");
         System.out.println("\n");
@@ -49,9 +51,6 @@ public class TaskApp {
         displayAskMaster();
     }
 
-    /*        public boolean addSubTask() {
-            return false;
-        }*/
 
     // MODIFIES: this
     // EFFECTS: processes user command
@@ -72,7 +71,8 @@ public class TaskApp {
         System.out.println("\tq -> quit");
     }
 
-    // EFFECTS: display menu after master Task has been created, ask for a master task name
+    // EFFECTS: display menu after master Task has been created, asks for a master task name, changes display to
+    //          master menu after name is entered
     private void displayAskMaster() {
         String selection = "";
         while (!(selection.equals("q"))) {
@@ -88,8 +88,8 @@ public class TaskApp {
         }
     }
 
-    // MODIFIES:
-    // EFFECTS: display menu after master Task has been named
+    // MODIFIES: this, initMasterTask
+    // EFFECTS: display menu after master Task has been named, if s is selected initialize a sub task under master task
     private void displayMasterMenu() {
         String selection = "";
         while (!(selection.equals("q"))) {
@@ -115,7 +115,6 @@ public class TaskApp {
         }
     }
 
-    // MODIFIES:
     // EFFECTS: display menu after sub Task has been created, ask for a sub task name
     private void displayAskSub() {
         String selection = "";
@@ -131,8 +130,9 @@ public class TaskApp {
         }
     }
 
-    // MODIFIES:
-    // EFFECTS: display menu after master Task has been named
+    // EFFECTS: show subtask display menu, if n is selected continue to add a person,
+    //                                     if r is selected return to master menu,
+    //                                     else quit
     private void displaySubMenu() {
         String selection = "";
         while (!(selection.equals("q"))) {
@@ -156,6 +156,8 @@ public class TaskApp {
         keepGoing = false;
     }
 
+    // EFFECTS: display new person menu, if text is entered, set text to persons name and print success message
+    //          then return to the subtask menu
     private void displayAddPerson() {
         String selection = "";
         while (!(selection.equals("q"))) {
@@ -174,14 +176,17 @@ public class TaskApp {
         displaySubMenu();
     }
 
+    // EFFECTS: instantiates a MasterTask object
     public void createMasterTask(String title) {
         initMasterTask = new MasterTask(title);
     }
 
+    // EFFECTS: instantiates a SubTask object
     public void createSubTask(String title) {
         initSubTask = new SubTask(title);
     }
 
+    // EFFECTS: instantiates a Person object
     public void createNewPerson(String name) {
         initNewPerson = new Person(name);
     }

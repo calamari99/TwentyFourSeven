@@ -28,7 +28,9 @@ class MasterTaskTest {
     @Test
     void testAddSubTask() {
         assertTrue(testTask1.addSubTask(subTask1));
-        assertTrue(testTask1.addSubTask(subTask1));
+        assertTrue(testTask1.addSubTask(subTask2));
+        assertEquals(testTask1.assignedTasks.get(0),subTask1);
+        assertEquals(testTask1.assignedTasks.get(1),subTask2);
     }
     @Test
     void testSetProjectDetails() {

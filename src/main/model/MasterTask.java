@@ -22,6 +22,7 @@ public class MasterTask {
 
         // figure out what I want to do with empty title later
         // what should I extend to its children?
+
         // current date
         //setting current date
 /*        Date initDate = new Date();
@@ -39,10 +40,10 @@ public class MasterTask {
 
     // MODIFIES: this, assignedTasks
     // EFFECTS: adds a subtask to the parents assignedTasks list
-    public boolean addSubTask(SubTask subtask) {
+    public void addSubTask(SubTask subtask) {
         assignedTasks.add(subtask);
-        int m = assignedTasks.size();
-        return ((assignedTasks.get(m - 1) == subtask));
+/*        int m = assignedTasks.size();
+        return ((assignedTasks.get(m - 1) == subtask));*/
     }
 
 

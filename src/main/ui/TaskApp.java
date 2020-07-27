@@ -8,8 +8,9 @@ import java.util.Scanner;
 // TaskApp methods class is taken after Teller
 
 public class TaskApp {
-    // How would you create a new variable every time the createXYZ method is called?
-    // Problem arises when multiple objects are created within this TaskApp
+    // How do you create a new variable every time the createXYZ method is called?
+    // Check if problem arises when multiple instances of init`class` are within this TaskApp
+    // bug: inputs with spaces create odd scenarios, require no space as input for now, add exception
 
     private volatile MasterTask initMasterTask;
     private volatile SubTask initSubTask;
@@ -22,6 +23,7 @@ public class TaskApp {
         runTaskApp();
     }
 
+    // REQUIRE: no spaces can be typed as input (for now)
     // MODIFIES: this
     // EFFECTS: runs app in user console with user input
     private void runTaskApp() {

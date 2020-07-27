@@ -30,10 +30,10 @@ public class SubTask extends MasterTask {
 
     // MODIFIES: this, assignedPersons
     // EFFECTS: adds a person to the parents assignedTasks list and returns true if added
-    public boolean addPerson(Person person) {
+    public void addPerson(Person person) {
         assignedPersons.add(person);
-        int m = assignedPersons.size();
-        return ((assignedPersons.get(m - 1) == person));
+/*        int m = assignedPersons.size();
+        return ((assignedPersons.get(m - 1) == person));*/
     }
 
 // needs to be tested + implemented

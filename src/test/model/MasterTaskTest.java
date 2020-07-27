@@ -34,11 +34,13 @@ class MasterTaskTest {
         assertEquals(testTask1.assignedTasks.size(), 2);  // test size
         assertEquals(testTask1.assignedTasks.get(0),subTask1);   // test boolean first value
         assertEquals(testTask1.assignedTasks.get(1),subTask2);   // test boolean second value
+        assertFalse(testTask1.addSubTask(subTask1)); // adding subtask1 in list again
     }
 
     @Test
-    void testGetSubTask() {
-        assertFalse(testTask1.assignedTasks.get(0).addSubTask(subTask1));
+    void testAddSubtoSubTask() {
+        assertTrue(subTask1.addSubTask(subTask1));              // empty -> not empty
+        assertTrue(subTask1.addSubTask(subTask1));              // not empty -> not empty
     }
 
     @Test

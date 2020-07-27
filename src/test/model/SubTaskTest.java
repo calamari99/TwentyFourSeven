@@ -35,6 +35,7 @@ public class SubTaskTest {
         assertTrue(subTask1.addPerson(person2)); // adding to not empty
         assertEquals(subTask1.assignedPersons.get(0),person1);
         assertEquals(subTask1.assignedPersons.get(1),person2);
+        assertFalse(subTask1.addPerson(person1)); // adding person1 in list again
     }
 
     @Test

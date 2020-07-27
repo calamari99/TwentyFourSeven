@@ -38,17 +38,15 @@ public class MasterTask {
 
 
     // MODIFIES: this, assignedTasks
-    // EFFECTS: adds a subtask to the parents assignedTasks list
-    public boolean addSubTask(SubTask subtask) {
-        assignedTasks.add(subtask);
-        int m = assignedTasks.size();
-        if (m == 0) {
-            return false;
+    // EFFECTS: if not already in list, adds a subtask to the parents assignedTasks and returns true, fals 
+    public Boolean addSubTask(SubTask subTask) {
+        if (!(assignedTasks.contains(subTask))) {
+            assignedTasks.add(subTask);
+            return true;
         } else {
-            return ((assignedTasks.get(m - 1) == subtask));
+            return false;
         }
     }
-
 
     // EFFECTS: returns task title
     public String getTitle() {

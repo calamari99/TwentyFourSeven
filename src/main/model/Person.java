@@ -11,7 +11,7 @@ public class Person {
         // add work schedule down the line?
     }
 
-
+    // EFFECT: returns name of person
     public String getName() {
         return name;
     }

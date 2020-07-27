@@ -33,14 +33,12 @@ public class SubTask extends MasterTask {
     public boolean addPerson(Person person) {
         assignedPersons.add(person);
         int m = assignedPersons.size();
-        if (m == 0) {
-            return false;
-        } else {
-            return ((assignedPersons.get(m - 1) == person));
-        }
+        return ((assignedPersons.get(m - 1) == person));
     }
 
+
     // MODIFIES: this
+    // EFFECTS: returns list of Names under a task
     public ArrayList<String> teamNames() {
         ArrayList<String> teamMemberNames = new ArrayList<String>();
         for (Person assignedPerson : assignedPersons) {
@@ -60,12 +58,12 @@ public class SubTask extends MasterTask {
     // EFFECTS: sets isDone to true
     public Boolean setDone() {
         isDone = true;
-        return isDone;
+        return true;
     }
 
+    // EFFECTS: returns size of team
     public int getTeamSize() {
         return assignedPersons.size();
     }
-
 
 }

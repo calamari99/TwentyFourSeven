@@ -33,7 +33,6 @@ public class SubTaskTest {
     void testAddPerson() {
         assertTrue(subTask1.addPerson(person1)); // empty -> not empty
         assertTrue(subTask1.addPerson(person1)); // adding to not empty
-
     }
 
     @Test

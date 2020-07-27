@@ -10,7 +10,7 @@ public class SubTask extends MasterTask {
     int taskNum;
     String taskDetails;
     private final int subTaskId;
-    private static final AtomicInteger id = new AtomicInteger(1);
+    private static final AtomicInteger id = new AtomicInteger(0); //initializes at 0
     // https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicInteger.html
     public ArrayList<Person> assignedPersons;         // list of people working on this task
     ArrayList<String> teamMemberNames;         // names of people working on this task
@@ -19,9 +19,9 @@ public class SubTask extends MasterTask {
     String subTaskTitle;
 
     // REQUIRES: string title not empty, id >= 0 (create exceptions here)
-    // MODIFES:
+    // MODIFIES: this
     // EFFECTS: Creates a subtask with a given title and id, and an empty list of assignedPersons
-    //          and an emply list of teamMemberNames
+    //          and an empty list of teamMemberNames
     public SubTask(String title) {
         super(title);
         this.subTaskTitle = title;
@@ -66,6 +66,10 @@ public class SubTask extends MasterTask {
     // EFFECTS: returns size of team
     public int getTeamSize() {
         return assignedPersons.size();
+    }
+
+    public int getSubTaskId() {
+        return subTaskId;
     }
 
 

@@ -54,5 +54,11 @@ public class SubTaskTest {
         assertEquals(subTask1.getTeamSize(),2);
     }
 
+    //run separately since id is incrementing based on constructor calls
+    @Test
+    void testGetSubTaskId() {
+        assertEquals(subTask1.getSubTaskId(),1);
+        assertEquals(subTask2.getSubTaskId(),2);
+    }
 
 }

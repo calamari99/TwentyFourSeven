@@ -30,8 +30,8 @@ public class PersonTest {
 
     @Test
     void testGetPersonId() {
-        assertEquals(p1.getPersonId(),1);
-        assertEquals(p2.getPersonId(),2);
+        assertEquals(p1.getPersonId(),5); // BeforeEach has run 4 times before
+        assertEquals(p2.getPersonId(),6); // BeforeEach has run 5 times before
     }
 
 

@@ -7,6 +7,9 @@ import model.SubTask;
 import java.util.Scanner;
 
 public class TaskApp {
+    // How would you create a new variable every time the createXYZ method is called?
+    // Problem arises when multiple objects are created within this TaskApp
+
     private volatile MasterTask initMasterTask;
     private volatile SubTask initSubTask;
     private volatile Person initNewPerson;
@@ -98,6 +101,8 @@ public class TaskApp {
             selection = input.next();
             selection = selection.toLowerCase();
             if (selection.equals("s")) {
+                // WANT: use the input selection as the title field for our subTask
+                // ISSUE: using multiple subTasks updates the same variable?
                 createSubTask(selection);
                 initMasterTask.addSubTask(initSubTask);
                 displayAskSub();

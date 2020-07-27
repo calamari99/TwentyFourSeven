@@ -25,13 +25,22 @@ class MasterTaskTest {
         assertEquals(testTask1.getTitle(),"");
         assertEquals(testTask2.getTitle(),"testingMasterTask");
     }
+
     @Test
     void testAddSubTask() {
-        testTask1.addSubTask(subTask1);
-        testTask1.addSubTask(subTask2);
-        assertEquals(testTask1.assignedTasks.get(0),subTask1);
-        assertEquals(testTask1.assignedTasks.get(1),subTask2);
+        assertTrue(testTask1.addSubTask(subTask1));              // empty -> not empty
+        assertEquals(testTask1.assignedTasks.size(), 1);  // test size
+        assertTrue(testTask1.addSubTask(subTask2));              // not empty -> not empty
+        assertEquals(testTask1.assignedTasks.size(), 2);  // test size
+        assertEquals(testTask1.assignedTasks.get(0),subTask1);   // test boolean first value
+        assertEquals(testTask1.assignedTasks.get(1),subTask2);   // test boolean second value
     }
+
+    @Test
+    void testGetSubTask() {
+        assertFalse(testTask1.assignedTasks.get(0).addSubTask(subTask1));
+    }
+
     @Test
     void testSetProjectDetails() {
         testTask1.setProjectDetails("");

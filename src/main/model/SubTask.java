@@ -1,6 +1,7 @@
 package model;
 
 import model.MasterTask;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -30,13 +31,17 @@ public class SubTask extends MasterTask {
 
     // MODIFIES: this, assignedPersons
     // EFFECTS: adds a person to the parents assignedTasks list and returns true if added
-    public void addPerson(Person person) {
+    public Boolean addPerson(Person person) {
         assignedPersons.add(person);
-/*        int m = assignedPersons.size();
-        return ((assignedPersons.get(m - 1) == person));*/
+        int m = assignedPersons.size();
+        if (m == 0) {
+            return false;
+        } else {
+            return ((assignedPersons.get(m - 1) == person));
+        }
     }
 
-// needs to be tested + implemented
+// implement
 /*    // MODIFIES: this
     // EFFECTS: returns list of Names under a task
     public ArrayList<String> teamNames() {

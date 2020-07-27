@@ -1,5 +1,7 @@
 package ui;
 
+import model.MasterTask;
+
 import java.util.Scanner;
 
 public class TaskApp {
@@ -35,6 +37,7 @@ public class TaskApp {
     private void addMasterTask() {
         System.out.println("added Master Task");
         System.out.println("\n");
+
         displayAskMaster();
     }
 
@@ -68,6 +71,8 @@ public class TaskApp {
             System.out.println("Enter the name of the Master Task below:");
             selection = input.next();
             selection = selection.toLowerCase();
+            createMasterTask(selection);
+            System.out.println();
             if (!(selection == "")) {
                 displayMasterMenu();
                 break;
@@ -81,13 +86,16 @@ public class TaskApp {
         String selection = "";
         while (!(selection.equals("q"))) {
             System.out.println("\n");
-            System.out.println("You have successfully created your Master Task: _______");
-            System.out.println("Enter s to create your first subTask");
-            System.out.println("q -> return to main menu");
+            System.out.println("You are working on Master Task: _______");
+            System.out.println("\ts to create your a subTask");
+            //System.out.println("\tp to view people working on this task"); implement
+            System.out.println("\tq -> quit");
             selection = input.next();
             selection = selection.toLowerCase();
             if (selection.equals("s")) {
                 displayAskSub();
+            } else if (selection.equals("q")) {
+                keepGoing = false;
             } else {
                 System.out.println("invalid selection");
             }
@@ -102,7 +110,6 @@ public class TaskApp {
 
         while (!(selection.equals("q"))) {
             System.out.println("Enter the name of the Sub Task below:");
-            System.out.println("q -> quit");
             selection = input.next();
             selection = selection.toLowerCase();
             if (!(selection == "")) {
@@ -118,12 +125,44 @@ public class TaskApp {
         String selection = "";
         while (!(selection.equals("q"))) {
             System.out.println("\n");
-            System.out.println("You have successfully created your Sub Task: _______");
-            System.out.println("q -> return to main menu");
+            System.out.println("You are working on Sub Task: _______");
+            System.out.println("\tn -> assign new person to task");
+            System.out.println("\tr -> return to MasterTask Menu");
+            System.out.println("\tq -> quit");
             selection = input.next();
             selection = selection.toLowerCase();
+
+            if (selection.equals("n")) {
+                displayAddPerson();
+                break;
+            }
+
+            if (selection.equals("r")) {
+                displayMasterMenu();
+            }
         }
         keepGoing = false;
     }
+
+    private void displayAddPerson() {
+        String selection = "";
+        while (!(selection.equals("q"))) {
+            System.out.println("Enter name of person");
+            selection = input.next();
+            selection = selection.toLowerCase();
+
+            if (!(selection == "")) {
+                break;
+            }
+        }
+        System.out.println("You have added _______ to Sub Task _______");
+        displaySubMenu();
+    }
+
+    private void createMasterTask(String title) {
+        MasterTask initalTask = new MasterTask(title);
+    }
+
+
 }
 

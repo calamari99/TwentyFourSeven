@@ -29,7 +29,6 @@ public class MasterTask {
         System.out.println(simpleDate.format(initDate)); https://www.tutorialspoint.com/java/java_date_time.htm*/
     }
 
-
     // MODIFIES: this, project details;
     // EFFECTS: takes in user input and sets project detail variable to input, if empty return projectDetails
     public String setProjectDetails(String details) {

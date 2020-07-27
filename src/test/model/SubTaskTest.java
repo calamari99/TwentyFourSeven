@@ -14,8 +14,8 @@ public class SubTaskTest {
 
     @BeforeEach
     void runBefore() {
-        subTask1 = new SubTask("",1);
-        subTask2 = new SubTask("test",2);
+        subTask1 = new SubTask("");
+        subTask2 = new SubTask("test");
         person1 = new Person("Lilo");
         person2 = new Person("Stitch");
     }
@@ -24,9 +24,9 @@ public class SubTaskTest {
     void testSubTaskConstructor() {
         assertEquals(subTask1.getTitle(),"");
         assertEquals(subTask2.getTitle(),"test");
-
+/*
         assertEquals(subTask1.getTaskNum(),1);
-        assertEquals(subTask2.getTaskNum(),2);
+        assertEquals(subTask2.getTaskNum(),2);*/
     }
 
     @Test
@@ -35,11 +35,11 @@ public class SubTaskTest {
         assertTrue(subTask1.addPerson(person1)); // adding to not empty
     }
 
-    @Test
+/*    @Test
     void testGetTaskNum() {
         assertEquals(subTask1.getTaskNum(),1);
         assertEquals(subTask2.getTaskNum(),2);
-    }
+    }*/
 
     @Test
     void testSetDone() {

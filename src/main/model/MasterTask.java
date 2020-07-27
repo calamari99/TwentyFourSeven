@@ -39,8 +39,10 @@ public class MasterTask {
 
     // MODIFIES: this, assignedTasks
     // EFFECTS: adds a subtask to the parents assignedTasks list
-    public void addSubTask(SubTask subtask) {
+    public boolean addSubTask(SubTask subtask) {
         assignedTasks.add(subtask);
+        int m = assignedTasks.size();
+        return ((assignedTasks.get(m - 1) == subtask));
     }
 
 

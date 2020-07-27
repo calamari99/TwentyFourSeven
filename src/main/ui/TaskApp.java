@@ -1,10 +1,15 @@
 package ui;
 
 import model.MasterTask;
+import model.Person;
+import model.SubTask;
 
 import java.util.Scanner;
 
 public class TaskApp {
+    private volatile MasterTask initMasterTask;
+    private volatile SubTask initSubTask;
+    private volatile Person initNewPerson;
     private Scanner input;
     Boolean keepGoing = true;
 
@@ -93,6 +98,8 @@ public class TaskApp {
             selection = input.next();
             selection = selection.toLowerCase();
             if (selection.equals("s")) {
+                createSubTask(selection);
+                initMasterTask.addSubTask(initSubTask);
                 displayAskSub();
             } else if (selection.equals("q")) {
                 keepGoing = false;
@@ -152,6 +159,9 @@ public class TaskApp {
             selection = selection.toLowerCase();
 
             if (!(selection == "")) {
+                createNewPerson(selection);
+                initSubTask.addPerson(initNewPerson);
+                //System.out.println(initSubTask.assignedPersons.get(0).getSubTaskId());
                 break;
             }
         }
@@ -159,10 +169,17 @@ public class TaskApp {
         displaySubMenu();
     }
 
-    private void createMasterTask(String title) {
-        MasterTask initalTask = new MasterTask(title);
+    public void createMasterTask(String title) {
+        initMasterTask = new MasterTask(title);
     }
 
+    public void createSubTask(String title) {
+        initSubTask = new SubTask(title);
+    }
+
+    public void createNewPerson(String name) {
+        initNewPerson = new Person(name);
+    }
 
 }
 

@@ -9,11 +9,15 @@ import static org.junit.jupiter.api.Assertions.*;
 class MasterTaskTest {
     MasterTask testTask1;
     MasterTask testTask2;
+    SubTask subTask1;
+    SubTask subTask2;
 
     @BeforeEach
     void runBefore() {
         testTask1 = new MasterTask("");
         testTask2 = new MasterTask("testingMasterTask");
+        subTask1 = new SubTask("");
+        subTask2 = new SubTask("testingSubTask");
     }
 
     @Test
@@ -21,7 +25,11 @@ class MasterTaskTest {
         assertEquals(testTask1.getTitle(),"");
         assertEquals(testTask2.getTitle(),"testingMasterTask");
     }
-
+    @Test
+    void testAddSubTask() {
+        assertTrue(testTask1.addSubTask(subTask1));
+        assertTrue(testTask1.addSubTask(subTask1));
+    }
     @Test
     void testSetProjectDetails() {
         testTask1.setProjectDetails("");

@@ -4,12 +4,15 @@ import model.MasterTask;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class SubTask extends MasterTask {
     int taskNum;
     String taskDetails;
-
-    ArrayList<Person> assignedPersons;         // list of people working on this task
+    private final int subTaskId;
+    private static final AtomicInteger id = new AtomicInteger(1);
+    // https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicInteger.html
+    public ArrayList<Person> assignedPersons;         // list of people working on this task
     ArrayList<String> teamMemberNames;         // names of people working on this task
     //ArrayList<SubTask> assignedTasks;        // figure out inheritance later
     Boolean isDone = false;
@@ -19,13 +22,12 @@ public class SubTask extends MasterTask {
     // MODIFES:
     // EFFECTS: Creates a subtask with a given title and id, and an empty list of assignedPersons
     //          and an emply list of teamMemberNames
-    public SubTask(String title, int id) {
+    public SubTask(String title) {
         super(title);
         this.subTaskTitle = title;
-        this.taskNum = id;
         assignedPersons = new ArrayList<Person>();
         teamMemberNames = new ArrayList<String>();
-        //set(id);
+        subTaskId = id.incrementAndGet();
     }
 
     // MODIFIES: this, assignedPersons
@@ -65,5 +67,6 @@ public class SubTask extends MasterTask {
     public int getTeamSize() {
         return assignedPersons.size();
     }
+
 
 }

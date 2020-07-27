@@ -27,4 +27,12 @@ public class PersonTest {
         assertEquals(p1.getName(), "");
         assertEquals(p2.getName(), "Lilo");
     }
+
+    @Test
+    void testGetPersonId() {
+        assertEquals(p1.getPersonId(),1);
+        assertEquals(p2.getPersonId(),2);
+    }
+
+
 }

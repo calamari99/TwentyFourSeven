@@ -12,7 +12,7 @@ public class MasterTask {
     //String name; // creator name
     String projectTitle;
     String projectDetails;
-    ArrayList<SubTask> assignedTasks;
+    final ArrayList<SubTask> assignedTasks;
 
     // EFFECTS: Constructs a MasterTask with a title, an empty list of SubTasks
     public MasterTask(String title) {
@@ -38,7 +38,7 @@ public class MasterTask {
 
 
     // MODIFIES: this, assignedTasks
-    // EFFECTS: if not already in list, adds a subtask to the parents assignedTasks and returns true, fals 
+    // EFFECTS: if not already in list, adds a subtask to the parents assignedTasks and returns true, false otherwise
     public Boolean addSubTask(SubTask subTask) {
         if (!(assignedTasks.contains(subTask))) {
             assignedTasks.add(subTask);

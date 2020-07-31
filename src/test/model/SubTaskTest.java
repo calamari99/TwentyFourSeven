@@ -44,10 +44,18 @@ public class SubTaskTest {
     }
 
     @Test
+    void testAddSubtoSubTask() {
+        assertTrue(subTask1.addSubTask(subTask2));              // empty -> not empty
+        assertFalse(subTask1.addSubTask(subTask2));              // not empty -> not empty
+    }
+
+    @Test
     void testGetTeamSize() {
         subTask1.addPerson(person1);
         assertEquals(subTask1.getTeamSize(),1);
         subTask1.addPerson(person1);
+        assertEquals(subTask1.getTeamSize(),1);
+        subTask1.addPerson(person2);
         assertEquals(subTask1.getTeamSize(),2);
     }
 

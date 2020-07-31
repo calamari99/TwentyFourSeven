@@ -150,9 +150,10 @@ public class TaskApp {
                 displayAddPerson();
                 break;
             }
-
             if (selection.equals("r")) {
                 displayMasterMenu();
+            } else {
+                System.out.println("Invalid Selection, Please enter again");
             }
         }
         keepGoing = false;

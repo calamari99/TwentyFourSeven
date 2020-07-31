@@ -37,11 +37,6 @@ class MasterTaskTest {
         assertFalse(testTask1.addSubTask(subTask1)); // adding subtask1 in list again
     }
 
-    @Test
-    void testAddSubtoSubTask() {
-        assertTrue(subTask1.addSubTask(subTask1));              // empty -> not empty
-        assertTrue(subTask1.addSubTask(subTask1));              // not empty -> not empty
-    }
 
     @Test
     void testSetProjectDetails() {

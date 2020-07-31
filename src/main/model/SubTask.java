@@ -13,7 +13,7 @@ public class SubTask extends MasterTask {
     // https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicInteger.html
     public ArrayList<Person> assignedPersons;         // list of people working on this task
     ArrayList<String> teamMemberNames;         // names of people working on this task
-    //ArrayList<SubTask> assignedTasks;        // figure out inheritance later
+    ArrayList<SubTask> subAssignedTasks;        // figure out inheritance later
     Boolean isDone = false;
     String subTaskTitle;
 
@@ -26,6 +26,7 @@ public class SubTask extends MasterTask {
         this.subTaskTitle = title;
         assignedPersons = new ArrayList<Person>();
         teamMemberNames = new ArrayList<String>();
+        subAssignedTasks = new ArrayList<SubTask>();
         subTaskId = id.incrementAndGet();
     }
 
@@ -40,7 +41,7 @@ public class SubTask extends MasterTask {
         }
     }
 
-// implement
+    // implement
 /*    // MODIFIES: this
     // EFFECTS: returns list of Names under a task
     public ArrayList<String> teamNames() {
@@ -54,11 +55,22 @@ public class SubTask extends MasterTask {
         return teamMemberNames;
     }*/
 
+    // testing
 
     // EFFECTS: sets isDone to true
     public Boolean setDone() {
         isDone = true;
         return true;
+    }
+
+    @Override
+    public Boolean addSubTask(SubTask subTask) {
+        if (!(this.subAssignedTasks.contains(subTask))) {
+            this.subAssignedTasks.add(subTask);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // EFFECTS: returns size of team

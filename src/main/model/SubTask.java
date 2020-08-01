@@ -23,7 +23,7 @@ public class SubTask extends MasterTask {
     //          and an empty list of teamMemberNames
     public SubTask(String title) {
         super(title);
-        this.subTaskTitle = title;
+        subTaskTitle = title;
         assignedPersons = new ArrayList<Person>();
         teamMemberNames = new ArrayList<String>();
         subAssignedTasks = new ArrayList<SubTask>();

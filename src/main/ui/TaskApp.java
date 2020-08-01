@@ -17,6 +17,8 @@ public class TaskApp {
     private volatile Person initNewPerson;
     private Scanner input;
     Boolean keepGoing = true;
+    public String masterTitle;
+    public String prevSubTitle;
 
     // EFFECTS: runs the task app
     public TaskApp() {
@@ -77,15 +79,20 @@ public class TaskApp {
     //          master menu after name is entered
     private void displayAskMaster() {
         String selection = "";
+
         while (!(selection.equals("q"))) {
             System.out.println("Enter the name of the Master Task below:");
             selection = input.next();
+            masterTitle = selection;
             selection = selection.toLowerCase();
             createMasterTask(selection);
             System.out.println();
             if (!(selection == "")) {
                 displayMasterMenu();
                 break;
+            }
+            if (selection.equals("q")) {
+                keepGoing = false;
             }
         }
     }
@@ -94,22 +101,25 @@ public class TaskApp {
     // EFFECTS: display menu after master Task has been named, if s is selected initialize a sub task under master task
     private void displayMasterMenu() {
         String selection = "";
+
         while (!(selection.equals("q"))) {
             System.out.println("\n");
-            System.out.println("You are working on Master Task: _______");
+            System.out.println("You are working on MasterTask: " + masterTitle);
             System.out.println("\ts to create your a subTask");
             //System.out.println("\tp to view people working on this task"); implement
             System.out.println("\tq -> quit");
             selection = input.next();
+            String masterTitle = selection;
             selection = selection.toLowerCase();
+
             if (selection.equals("s")) {
                 // WANT: use the input selection as the title field for our subTask
                 // ISSUE: using multiple subTasks updates the same variable?
                 createSubTask(selection);
-                initMasterTask.addSubTask(initSubTask);
                 displayAskSub();
             } else if (selection.equals("q")) {
                 keepGoing = false;
+                break;
             } else {
                 System.out.println("invalid selection");
             }
@@ -120,10 +130,10 @@ public class TaskApp {
     // EFFECTS: display menu after sub Task has been created, ask for a sub task name
     private void displayAskSub() {
         String selection = "";
-
         while (!(selection.equals("q"))) {
-            System.out.println("Enter the name of the Sub Task below:");
+            System.out.println("Enter the name of the SubTask below:");
             selection = input.next();
+            prevSubTitle = selection;
             selection = selection.toLowerCase();
             if (!(selection == "")) {
                 displaySubMenu();
@@ -138,20 +148,22 @@ public class TaskApp {
     private void displaySubMenu() {
         String selection = "";
         while (!(selection.equals("q"))) {
-            System.out.println("\n");
-            System.out.println("You are working on Sub Task: _______");
+            System.out.println("You are working on SubTask: " + prevSubTitle);
             System.out.println("\tn -> assign new person to task");
             System.out.println("\tr -> return to MasterTask Menu");
             System.out.println("\tq -> quit");
             selection = input.next();
             selection = selection.toLowerCase();
-
             if (selection.equals("n")) {
                 displayAddPerson();
                 break;
             }
             if (selection.equals("r")) {
                 displayMasterMenu();
+                break;
+            }
+            if (selection.equals("q")) {
+                break;
             } else {
                 System.out.println("Invalid Selection, Please enter again");
             }
@@ -175,7 +187,7 @@ public class TaskApp {
                 break;
             }
         }
-        System.out.println("You have added _______ to Sub Task _______");
+        System.out.println("You have added " + selection + " to Sub Task " + prevSubTitle);
         displaySubMenu();
     }
 

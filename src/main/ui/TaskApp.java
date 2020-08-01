@@ -101,9 +101,7 @@ public class TaskApp {
     // EFFECTS: display menu after master Task has been named, if s is selected initialize a sub task under master task
     private void displayMasterMenu() {
         String selection = "";
-
         while (!(selection.equals("q"))) {
-            System.out.println("\n");
             System.out.println("You are working on MasterTask: " + masterTitle);
             System.out.println("\ts to create your a subTask");
             //System.out.println("\tp to view people working on this task"); implement
@@ -188,6 +186,7 @@ public class TaskApp {
             }
         }
         System.out.println("You have added " + selection + " to Sub Task " + prevSubTitle);
+        System.out.println("\n");
         displaySubMenu();
     }
 

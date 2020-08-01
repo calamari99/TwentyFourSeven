@@ -10,7 +10,7 @@ import java.util.SimpleTimeZone;
 
 public class MasterTask {
     //String name; // creator name
-    public static String projectTitle;
+    public String projectTitle;
     String projectDetails;
     final ArrayList<SubTask> assignedTasks;
 

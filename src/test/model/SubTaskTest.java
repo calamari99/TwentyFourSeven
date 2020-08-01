@@ -31,11 +31,14 @@ public class SubTaskTest {
 
     @Test
     void testAddPerson() {
-        assertTrue(subTask1.addPerson(person1)); // empty -> not empty
-        assertTrue(subTask1.addPerson(person2)); // adding to not empty
-        assertEquals(subTask1.assignedPersons.get(0),person1);
-        assertEquals(subTask1.assignedPersons.get(1),person2);
-        assertFalse(subTask1.addPerson(person1)); // adding person1 in list again
+        subTask1.addPerson(person1);
+        assertEquals(subTask1.assignedPersons.size(),1); // empty -> not empty
+        subTask1.addPerson(person2);
+        assertEquals(subTask1.assignedPersons.size(),2); // adding to not empty
+        assertTrue(subTask1.assignedPersons.contains(person1));
+        assertTrue(subTask1.assignedPersons.contains(person2));
+        subTask1.addPerson(person1);
+        assertEquals(subTask1.assignedPersons.size(),2); // existing person was added again
     }
 
     @Test
@@ -62,8 +65,19 @@ public class SubTaskTest {
     // testGetSubTaskId is the last test called, thus BeforeEach has been called 6 times before this test runs
     @Test
     void testGetSubTaskId() {
-        assertEquals(subTask1.getSubTaskId(),7);
-        assertEquals(subTask2.getSubTaskId(),8);
+        assertEquals(subTask1.getSubTaskId(),1);
+        assertEquals(subTask2.getSubTaskId(),2);
+    }
+
+    @Test
+    void testGetTeamMemberNames() {
+        assertEquals("No Members Assigned!",subTask1.getTeamMemberNames());
+        subTask1.addPerson(person1);
+        subTask1.addPerson(person2);
+        assertEquals("[Lilo, Stitch]",subTask1.getTeamMemberNames());
+        subTask1.addPerson(person2);
+        assertEquals("[Lilo, Stitch]",subTask1.getTeamMemberNames());
+
     }
 
 }

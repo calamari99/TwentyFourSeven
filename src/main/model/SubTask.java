@@ -3,7 +3,7 @@ package model;
 import model.MasterTask;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class SubTask extends MasterTask {
@@ -11,9 +11,9 @@ public class SubTask extends MasterTask {
     private final int subTaskId;
     private static final AtomicInteger id = new AtomicInteger(0); //initializes at 0
     // https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicInteger.html
-    public ArrayList<Person> assignedPersons;         // list of people working on this task
-    ArrayList<String> teamMemberNames;         // names of people working on this task
-    ArrayList<SubTask> subAssignedTasks;        // figure out inheritance later
+    public HashSet<Person> assignedPersons;         // list of people working on this task
+    String teamMemberNames;         // names of people working on this task
+    HashSet<SubTask> subAssignedTasks;        // figure out inheritance later
     Boolean isDone = false;
     String subTaskTitle;
 
@@ -24,36 +24,41 @@ public class SubTask extends MasterTask {
     public SubTask(String title) {
         super(title);
         subTaskTitle = title;
-        assignedPersons = new ArrayList<Person>();
-        teamMemberNames = new ArrayList<String>();
-        subAssignedTasks = new ArrayList<SubTask>();
+        assignedPersons = new HashSet<Person>();
+        teamMemberNames = "No Members Assigned!";
+        subAssignedTasks = new HashSet<SubTask>();
         subTaskId = id.incrementAndGet();
+
     }
 
     // MODIFIES: this, assignedPersons
-    // EFFECTS: returns true if person is added the parents assignedPerson list if not already in list, false otherwise
-    public Boolean addPerson(Person person) {
-        if (!(assignedPersons.contains(person))) {
-            assignedPersons.add(person);
+    // EFFECTS: adds person to assignedPersons list (hashset)
+    public void addPerson(Person person) {
+        assignedPersons.add(person);
+/*        if (!(assignedPersons.contains(person))) { //converted to hashset
+            this.assignedPersons.add(person);
             return true;
         } else {
             return false;
-        }
+        }*/
+
     }
 
     // implement
-/*    // MODIFIES: this
+    // MODIFIES: this
     // EFFECTS: returns list of Names under a task
-    public ArrayList<String> teamNames() {
-        ArrayList<String> teamMemberNames = new ArrayList<String>();
+    public String getTeamMemberNames() {
+        ArrayList<String> names = new ArrayList<String>();
         for (Person assignedPerson : assignedPersons) {
-            String addName = assignedPerson.name;
-            if (!(teamMemberNames.contains(addName))) {
-                teamMemberNames.add(addName);
-            }
+            names.add(assignedPerson.name);
+
         }
-        return teamMemberNames;
-    }*/
+        if (names.isEmpty()) {
+            return teamMemberNames;
+        }
+        Collections.sort(names);
+        return names.toString();
+    }
 
     // testing
 
@@ -72,6 +77,11 @@ public class SubTask extends MasterTask {
             return false;
         }
     }
+
+/*    @Override
+    public String getSubTaskTitle() {
+
+    }*/
 
     // EFFECTS: returns size of team
     public int getTeamSize() {

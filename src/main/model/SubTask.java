@@ -7,15 +7,15 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class SubTask extends MasterTask {
-    String taskDetails;
+    public String subTaskTitle;
     private final int subTaskId;
     private static final AtomicInteger id = new AtomicInteger(0); //initializes at 0
     // https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicInteger.html
-    public HashSet<Person> assignedPersons;         // list of people working on this task
-    String teamMemberNames;         // names of people working on this task
-    HashSet<SubTask> subAssignedTasks;        // figure out inheritance later
-    Boolean isDone = false;
-    String subTaskTitle;
+    public HashSet<Person> assignedPersons;   // list of people working on this task
+    String teamMemberNames;                   // names of people working on this task
+    HashSet<SubTask> subAssignedTasks;        // for figuring out after project is over
+    // Boolean isDone = false;                // for figuring out after project is over
+
 
     // REQUIRES: string title not empty, id >= 0 (create exceptions here)
     // MODIFIES: this
@@ -23,7 +23,7 @@ public class SubTask extends MasterTask {
     //          and an empty list of teamMemberNames
     public SubTask(String title) {
         super(title);
-        subTaskTitle = title;
+        this.subTaskTitle = title;
         assignedPersons = new HashSet<Person>();
         teamMemberNames = "No Members Assigned!";
         subAssignedTasks = new HashSet<SubTask>();
@@ -35,13 +35,6 @@ public class SubTask extends MasterTask {
     // EFFECTS: adds person to assignedPersons list (hashset)
     public void addPerson(Person person) {
         assignedPersons.add(person);
-/*        if (!(assignedPersons.contains(person))) { //converted to hashset
-            this.assignedPersons.add(person);
-            return true;
-        } else {
-            return false;
-        }*/
-
     }
 
     // implement
@@ -60,14 +53,6 @@ public class SubTask extends MasterTask {
         return names.toString();
     }
 
-    // testing
-
-    // EFFECTS: sets isDone to true
-    public Boolean setDone() {
-        isDone = true;
-        return true;
-    }
-
     @Override
     public Boolean addSubTask(SubTask subTask) {
         if (!(this.subAssignedTasks.contains(subTask))) {
@@ -77,11 +62,6 @@ public class SubTask extends MasterTask {
             return false;
         }
     }
-
-/*    @Override
-    public String getSubTaskTitle() {
-
-    }*/
 
     // EFFECTS: returns size of team
     public int getTeamSize() {
@@ -93,5 +73,17 @@ public class SubTask extends MasterTask {
         return subTaskId;
     }
 
+    // testing
+/*
+    // EFFECTS: sets isDone to true
+    public Boolean setDone() {
+        isDone = true;
+        return true;
+    }
+*/
 
+/*    @Override
+    public String getSubTaskTitle() {
+
+    }*/
 }

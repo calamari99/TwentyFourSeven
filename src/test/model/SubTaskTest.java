@@ -41,10 +41,10 @@ public class SubTaskTest {
         assertEquals(subTask1.assignedPersons.size(),2); // existing person was added again
     }
 
-    @Test
+/*    @Test
     void testSetDone() {
         assertTrue(subTask1.setDone());
-    }
+    }*/
 
     @Test
     void testAddSubtoSubTask() {

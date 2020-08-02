@@ -1,5 +1,8 @@
 package ui;
 
+import com.google.gson.Gson;
+import jdk.nashorn.internal.ir.debug.JSONWriter;
+import jdk.nashorn.internal.parser.JSONParser;
 import model.MasterTask;
 import model.Person;
 import model.SubTask;
@@ -103,7 +106,7 @@ public class TaskApp {
         String selection = "";
         while (!(selection.equals("q"))) {
             System.out.println("You are working on MasterTask: " + masterTitle);
-            System.out.println("\ts to create your a subTask");
+            System.out.println("\ts -> create a subTask under this MasterTask");
             //System.out.println("\tp to view people working on this task"); implement
             System.out.println("\tq -> quit");
             selection = input.next();
@@ -111,9 +114,6 @@ public class TaskApp {
             selection = selection.toLowerCase();
 
             if (selection.equals("s")) {
-                // WANT: use the input selection as the title field for our subTask
-                // ISSUE: using multiple subTasks updates the same variable?
-                createSubTask(selection);
                 displayAskSub();
             } else if (selection.equals("q")) {
                 keepGoing = false;
@@ -132,11 +132,11 @@ public class TaskApp {
             System.out.println("Enter the name of the SubTask below:");
             selection = input.next();
             prevSubTitle = selection;
-            selection = selection.toLowerCase();
-            if (!(selection == "")) {
-                displaySubMenu();
-                break;
-            }
+            initMasterTask.addSubTask(initSubTask);
+            createSubTask(selection);
+            convertMasterJSON();
+            displaySubMenu();
+            break;
         }
     }
 
@@ -181,6 +181,7 @@ public class TaskApp {
             if (!(selection == "")) {
                 createNewPerson(selection);
                 initSubTask.addPerson(initNewPerson);
+                convertSubJSON();
                 //System.out.println(initSubTask.assignedPersons.get(0).getSubTaskId());
                 break;
             }
@@ -205,5 +206,18 @@ public class TaskApp {
         initNewPerson = new Person(name);
     }
 
+    // EFFECTS: prints JSON of masterTask
+    public void convertMasterJSON() {
+        Gson gson = new Gson();
+        String parseMasterTask = gson.toJson(this.initMasterTask);
+        System.out.println(parseMasterTask);
+    }
+
+    // EFFECTS: prints JSON of subTask
+    public void convertSubJSON() {
+        Gson gson = new Gson();
+        String parseSubTask = gson.toJson(this.initSubTask);
+        System.out.println(parseSubTask);
+    }
 }
 

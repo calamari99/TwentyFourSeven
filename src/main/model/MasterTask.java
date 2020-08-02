@@ -10,8 +10,8 @@ import java.util.SimpleTimeZone;
 
 public class MasterTask {
     //String name; // creator name
-    public static String projectTitle;
-    String projectDetails;
+    public String projectTitle;
+    String projectDetails = "placeholder";
     final ArrayList<SubTask> assignedTasks;
 
     // EFFECTS: Constructs a MasterTask with a title, an empty list of SubTasks

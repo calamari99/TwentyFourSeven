@@ -1,12 +1,14 @@
 package ui;
 
 import com.google.gson.Gson;
-import jdk.nashorn.internal.ir.debug.JSONWriter;
-import jdk.nashorn.internal.parser.JSONParser;
+import com.google.gson.GsonBuilder;
 import model.MasterTask;
 import model.Person;
 import model.SubTask;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.Scanner;
 // TaskApp methods class is taken after Teller
 
@@ -22,6 +24,7 @@ public class TaskApp {
     Boolean keepGoing = true;
     public String masterTitle;
     public String prevSubTitle;
+    public String stringMasterTask;
 
     // EFFECTS: runs the task app
     public TaskApp() {
@@ -181,7 +184,7 @@ public class TaskApp {
             if (!(selection == "")) {
                 createNewPerson(selection);
                 initSubTask.addPerson(initNewPerson);
-                convertSubJSON();
+                convertMasterJSON();
                 //System.out.println(initSubTask.assignedPersons.get(0).getSubTaskId());
                 break;
             }
@@ -206,18 +209,41 @@ public class TaskApp {
         initNewPerson = new Person(name);
     }
 
-    // EFFECTS: prints JSON of masterTask
+    // MODIFIES: file
+    // EFFECTS: prints JSON of masterTask and saves to file
     public void convertMasterJSON() {
-        Gson gson = new Gson();
-        String parseMasterTask = gson.toJson(this.initMasterTask);
-        System.out.println(parseMasterTask);
+        Gson gson =  new GsonBuilder().setPrettyPrinting().create();
+        String stringMasterTask = gson.toJson(this.initMasterTask);
+
+        // creates writer
+        try  {
+            Writer writer = new FileWriter("data\\masterData.JSON");
+            System.out.println(stringMasterTask);
+            writer.write(stringMasterTask);
+            writer.close();
+            System.out.println("data has been added");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    // EFFECTS: prints JSON of subTask
-    public void convertSubJSON() {
-        Gson gson = new Gson();
-        String parseSubTask = gson.toJson(this.initSubTask);
-        System.out.println(parseSubTask);
-    }
+/*    // MODIFIES: file
+    // EFFECTS: prints JSON of subTask and updates master JSON
+    public void updateMasterJson() {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        stringMasterTask = gson.toJson(this.initMasterTask);
+        System.out.println(stringMasterTask);
+
+        try  {
+            Writer writer = new FileWriter("data\\masterData.JSON");
+            writer.write(stringMasterTask); // updates when subtask is added
+            writer.close();
+            System.out.println("data has been added");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }*/
 }
 

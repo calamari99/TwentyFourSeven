@@ -19,7 +19,6 @@ public class MasterTask {
         projectTitle = title;
         assignedTasks = new ArrayList<SubTask>();
 
-
         // figure out what I want to do with empty title later
         // what should I extend to its children?
         // current date
@@ -27,6 +26,11 @@ public class MasterTask {
 /*        Date initDate = new Date();
         SimpleDateFormat simpleDate = new SimpleDateFormat("E yyyy.MM.dd"); //SimpleDateFormat used to parse
         System.out.println(simpleDate.format(initDate)); https://www.tutorialspoint.com/java/java_date_time.htm*/
+    }
+
+    // EFFECTS: Constructs a MasterTask with data stored in file
+    public MasterTask(String) {
+
     }
 
     // MODIFIES: this, project details;

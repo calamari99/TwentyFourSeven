@@ -13,9 +13,8 @@ import java.util.Scanner;
 // TaskApp methods class is taken after Teller
 
 public class TaskApp {
-    // How do you create a new variable every time the createXYZ method is called?
-    // Check if problem arises when multiple instances of init`class` are within this TaskApp
-    // bug: inputs with spaces create odd scenarios, require no space as input for now, add exception
+
+    //
 
     private volatile MasterTask initMasterTask;
     private volatile SubTask initSubTask;
@@ -135,8 +134,8 @@ public class TaskApp {
             System.out.println("Enter the name of the SubTask below:");
             selection = input.next();
             prevSubTitle = selection;
-            initMasterTask.addSubTask(initSubTask);
             createSubTask(selection);
+            initMasterTask.addSubTask(initSubTask);
             convertMasterJSON();
             displaySubMenu();
             break;
@@ -209,12 +208,12 @@ public class TaskApp {
         initNewPerson = new Person(name);
     }
 
-    // MODIFIES: file
-    // EFFECTS: prints JSON of masterTask and saves to file
+    // MODIFIES: masterData file
+    // EFFECTS: updates and recreates masterData file
     public void convertMasterJSON() {
         Gson gson =  new GsonBuilder().setPrettyPrinting().create();
         String stringMasterTask = gson.toJson(this.initMasterTask);
-
+        System.out.println(stringMasterTask);
         // creates writer
         try  {
             Writer writer = new FileWriter("data\\masterData.JSON");
@@ -228,22 +227,8 @@ public class TaskApp {
         }
     }
 
-/*    // MODIFIES: file
-    // EFFECTS: prints JSON of subTask and updates master JSON
-    public void updateMasterJson() {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        stringMasterTask = gson.toJson(this.initMasterTask);
-        System.out.println(stringMasterTask);
+    public void loadMasterJSON() {
 
-        try  {
-            Writer writer = new FileWriter("data\\masterData.JSON");
-            writer.write(stringMasterTask); // updates when subtask is added
-            writer.close();
-            System.out.println("data has been added");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
+    }
 }
 

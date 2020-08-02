@@ -2,18 +2,31 @@
   "projectTitle": "master",
   "projectDetails": "placeholder",
   "assignedTasks": [
-    null,
     {
       "subTaskId": 1,
       "assignedPersons": [
         {
-          "name": "first",
+          "name": "bob",
           "personId": 1
         }
       ],
       "teamMemberNames": "No Members Assigned!",
       "subAssignedTasks": [],
       "projectTitle": "sub1",
+      "projectDetails": "placeholder",
+      "assignedTasks": []
+    },
+    {
+      "subTaskId": 2,
+      "assignedPersons": [
+        {
+          "name": "ericname",
+          "personId": 2
+        }
+      ],
+      "teamMemberNames": "No Members Assigned!",
+      "subAssignedTasks": [],
+      "projectTitle": "eric",
       "projectDetails": "placeholder",
       "assignedTasks": []
     }

@@ -13,8 +13,7 @@ import java.util.Scanner;
 
 public class TaskApp {
 
-    //
-    private static final String ACCOUNTS_FILE = "./data/accounts.txt";
+    //private static final String ACCOUNTS_FILE = "./data/accounts.txt";
     private volatile MasterTask initMasterTask;
     private volatile SubTask initSubTask;
     private volatile Person initNewPerson;
@@ -22,7 +21,6 @@ public class TaskApp {
     Boolean keepGoing = true;
     public String masterTitle;
     public String prevSubTitle;
-    public String stringMasterTask;
 
     // EFFECTS: runs the task app
     public TaskApp() throws FileNotFoundException {
@@ -33,18 +31,7 @@ public class TaskApp {
     // MODIFIES: this
     // EFFECTS: runs app in user console with user input
     private void runTaskApp() throws FileNotFoundException {
-
         loadMaster();
-
-        if ((!masterTitle.equals(""))) {
-            displayMasterMenu();
-        } else {
-
-            while (keepGoing) {
-                loadFreshStart();
-            }
-        }
-        System.out.println("session has ended");
     }
 
     // EFFECTS: Prints completion of an added master task and prompts master name
@@ -81,7 +68,7 @@ public class TaskApp {
         String selection = "";
 
         while (!(selection.equals("q"))) {
-            System.out.println("Enter the name of the Master Task below:");
+            System.out.println("Enter the name of the MasterTask below:");
             selection = input.next();
             masterTitle = selection;
             selection = selection.toLowerCase();
@@ -102,7 +89,7 @@ public class TaskApp {
     private void displayMasterMenu() {
         String selection = "";
         while (!(selection.equals("q"))) {
-            System.out.println("You are working on MasterTask: " + masterTitle);
+            System.out.println("You are working on MasterTask: " + chooseMasterTitle());
             System.out.println("\ts -> create a subTask under this MasterTask");
             //System.out.println("\tp to view people working on this task"); implement
             System.out.println("\tq -> quit");
@@ -119,6 +106,14 @@ public class TaskApp {
                 System.out.println("invalid selection");
             }
             selection = "q";
+        }
+    }
+
+    private String chooseMasterTitle() {
+        if (this.masterTitle == null) {
+            return initMasterTask.getTitle();
+        } else {
+            return masterTitle;
         }
     }
 
@@ -183,7 +178,7 @@ public class TaskApp {
                 break;
             }
         }
-        System.out.println("You have added " + selection + " to Sub Task " + prevSubTitle);
+        System.out.println(selection + " has been added to SubTask: " + prevSubTitle);
         System.out.println("\n");
         displaySubMenu();
     }
@@ -206,46 +201,67 @@ public class TaskApp {
     // MODIFIES: masterData file
     // EFFECTS: updates and recreates masterData file
     public void convertMasterJson() {
-        Gson gson =  new GsonBuilder().setPrettyPrinting().create();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String stringMasterTask = gson.toJson(this.initMasterTask);
         System.out.println(stringMasterTask);
         // creates writer
-        try  {
+        try {
             Writer writer = new FileWriter("data\\masterData.JSON");
             System.out.println(stringMasterTask);
             writer.write(stringMasterTask);
             writer.close();
-            System.out.println("data has been added");
+            System.out.println("saved");
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public String loadMasterJson() throws FileNotFoundException {
-        Gson gson = new Gson();
-        // read json file
-        JsonReader reader = new JsonReader(new FileReader("data\\masterData.JSON"));
-        MasterTask initMasterTask = gson.fromJson(reader, MasterTask.class);
-        System.out.println(initMasterTask.getTitle());
+    // EFFECTS: Resumes to master menu state if local data is present
+    public void loadMasterJson() {
+        readJson();
+        String command = null;
+        Scanner consoleInput = new Scanner(System.in);
+        input = new Scanner(System.in);
+        while (keepGoing) {
+            displayMasterMenu();
+            command = input.next();
+            command = command.toLowerCase();
+
+            if (command.equals("q")) {
+                keepGoing = false;
+            } else {
+                processCommand(command);
+            }
+        }
+        System.out.println("session has ended");
+
+    }
+
+    // EFFECTS: Use gson library to update app to stored data, if no data is found, start program at initial state
+    public void readJson() {
         try {
+            Gson gson = new Gson();
+            // read json file
+            JsonReader reader = new JsonReader(new FileReader("data\\masterData.JSON"));
+            this.initMasterTask = gson.fromJson(reader, MasterTask.class);
+            System.out.println("You have loaded MasterTask: " + initMasterTask.getTitle());
             reader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            while (keepGoing) {
+                loadFreshStart();
+            }
         }
-        return initMasterTask.toString();
     }
 
     public void loadMaster() throws FileNotFoundException {
         loadMasterJson();
-
     }
 
     public void loadFreshStart() {
         String command = null;
         Scanner consoleInput = new Scanner(System.in);
         input = new Scanner(System.in);
-
         displayInitial();
         command = input.next();
         command = command.toLowerCase();
@@ -255,6 +271,8 @@ public class TaskApp {
         } else {
             processCommand(command);
         }
+
+        System.out.println("session has ended");
     }
 }
 

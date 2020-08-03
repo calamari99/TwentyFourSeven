@@ -1,8 +1,11 @@
 package model;
 
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 import model.SubTask;
 
 import java.io.File;
+import java.io.FileReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,11 +30,6 @@ public class MasterTask {
 /*        Date initDate = new Date();
         SimpleDateFormat simpleDate = new SimpleDateFormat("E yyyy.MM.dd"); //SimpleDateFormat used to parse
         System.out.println(simpleDate.format(initDate)); https://www.tutorialspoint.com/java/java_date_time.htm*/
-    }
-
-    // EFFECTS: Constructs a MasterTask from a file
-    public MasterTask(File file) {
-
     }
 
 

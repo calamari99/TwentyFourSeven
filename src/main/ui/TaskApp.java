@@ -13,25 +13,25 @@ import java.util.Scanner;
 
 public class TaskApp {
 
-    //private static final String ACCOUNTS_FILE = "./data/accounts.txt";
+    private static final String ACCOUNTS_FILE = "./data/masterData.JSON";
     private volatile MasterTask initMasterTask;
     private volatile SubTask initSubTask;
     private volatile Person initNewPerson;
     private Scanner input;
-    Boolean keepGoing = true;
     public String masterTitle;
     public String prevSubTitle;
+    Boolean keepGoing = true;
 
     // EFFECTS: runs the task app
-    public TaskApp() throws FileNotFoundException {
+    public TaskApp() {
         runTaskApp();
     }
 
     // REQUIRE: no spaces can be typed as input (for now)
     // MODIFIES: this
     // EFFECTS: runs app in user console with user input
-    private void runTaskApp() throws FileNotFoundException {
-        loadMaster();
+    private void runTaskApp() {
+        loadMasterJson();
     }
 
     // EFFECTS: Prints completion of an added master task and prompts master name
@@ -90,13 +90,17 @@ public class TaskApp {
         String selection = "";
         while (!(selection.equals("q"))) {
             System.out.println("You are working on MasterTask: " + chooseMasterTitle());
-            System.out.println("\ts -> create a subTask under this MasterTask");
+            System.out.println("\tv -> view subTasks");
+            System.out.println("\ts -> create a subTask");
             //System.out.println("\tp to view people working on this task"); implement
             System.out.println("\tq -> quit");
             selection = input.next();
             String masterTitle = selection;
             selection = selection.toLowerCase();
 
+            if (selection.equals("v")) {
+                displaySubTasks();
+            }
             if (selection.equals("s")) {
                 displayAskSub();
             } else if (selection.equals("q")) {
@@ -109,12 +113,18 @@ public class TaskApp {
         }
     }
 
+    // EFFECT: Returns master title from saved file if present, otherwise user input
     private String chooseMasterTitle() {
         if (this.masterTitle == null) {
             return initMasterTask.getTitle();
         } else {
             return masterTitle;
         }
+    }
+
+    // EFFECT: Views all subtasks under master tasks
+    private void displaySubTasks() {
+
     }
 
     // EFFECTS: display menu after sub Task has been created, ask for a sub task name
@@ -132,6 +142,7 @@ public class TaskApp {
         }
     }
 
+    // MODIFIES: this (keepGoing)
     // EFFECTS: show subtask display menu, if n is selected continue to add a person,
     //                                     if r is selected return to master menu,
     //                                     else quit
@@ -198,7 +209,7 @@ public class TaskApp {
         initNewPerson = new Person(name);
     }
 
-    // MODIFIES: masterData file
+    // MODIFIES: masterData json file, this
     // EFFECTS: updates and recreates masterData file
     public void convertMasterJson() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -206,7 +217,7 @@ public class TaskApp {
         System.out.println(stringMasterTask);
         // creates writer
         try {
-            Writer writer = new FileWriter("data\\masterData.JSON");
+            Writer writer = new FileWriter(ACCOUNTS_FILE);
             System.out.println(stringMasterTask);
             writer.write(stringMasterTask);
             writer.close();
@@ -219,7 +230,7 @@ public class TaskApp {
 
     // EFFECTS: Resumes to master menu state if local data is present
     public void loadMasterJson() {
-        readJson();
+        readMasterJson();
         String command = null;
         Scanner consoleInput = new Scanner(System.in);
         input = new Scanner(System.in);
@@ -238,27 +249,24 @@ public class TaskApp {
 
     }
 
-    // EFFECTS: Use gson library to update app to stored data, if no data is found, start program at initial state
-    public void readJson() {
+    // EFFECTS: Use GSON library to update app to stored data, if no data is found, start program at initial state
+    public void readMasterJson() {
         try {
             Gson gson = new Gson();
             // read json file
-            JsonReader reader = new JsonReader(new FileReader("data\\masterData.JSON"));
+            JsonReader reader = new JsonReader(new FileReader(ACCOUNTS_FILE));
             this.initMasterTask = gson.fromJson(reader, MasterTask.class);
-            System.out.println("You have loaded MasterTask: " + initMasterTask.getTitle());
+            System.out.println(initMasterTask.getTitle() + "has been loaded from stored file");
             reader.close();
         } catch (IOException e) {
             while (keepGoing) {
-                loadFreshStart();
+                loadInitMenu();
             }
         }
     }
 
-    public void loadMaster() throws FileNotFoundException {
-        loadMasterJson();
-    }
-
-    public void loadFreshStart() {
+    // EFFECTS: load initial start menu
+    public void loadInitMenu() {
         String command = null;
         Scanner consoleInput = new Scanner(System.in);
         input = new Scanner(System.in);

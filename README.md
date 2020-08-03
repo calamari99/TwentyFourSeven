@@ -20,11 +20,10 @@ I have taken ispiration from my a few of my favorite tools, Slack and Asana, and
 
 
 ### Stage 2:
-- as a user, I want to be able to save my MasterTask to file
-  - as a user, I want to be able to save my SubTask to file
-  - as a user, I want to be able to save generated persons to file
+- as a user, I want to be able to autosave my MasterTask to file
+  -  when new mastertask/subtask is added
+  -  upon quitting application
   
-- as a user, I want to be able to reload a specific MasterTask
-  - as a user, I want to be able to start back at exactly where I left off
+- as a user, I want to be able to reload my saved MasterTask into interface
 
 ### Stage 3:

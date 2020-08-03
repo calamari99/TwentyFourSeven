@@ -54,10 +54,10 @@ public class MasterTask {
         }
     }
 
-    // EFFECT: returns list of assigned subTasks
+/*    // EFFECT: returns list of assigned subTasks
     public ArrayList<SubTask> getAssignedTasks() {
         return assignedTasks;
-    }
+    }*/
 
     public String getSubNames() {
         subTaskNames = "SubTasks:";

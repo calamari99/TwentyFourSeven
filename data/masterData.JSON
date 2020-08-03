@@ -6,7 +6,7 @@
       "subTaskId": 1,
       "assignedPersons": [
         {
-          "name": "bob",
+          "name": "maple",
           "personId": 1
         }
       ],
@@ -20,13 +20,13 @@
       "subTaskId": 2,
       "assignedPersons": [
         {
-          "name": "ericname",
+          "name": "jim",
           "personId": 2
         }
       ],
       "teamMemberNames": "No Members Assigned!",
       "subAssignedTasks": [],
-      "projectTitle": "eric",
+      "projectTitle": "sub2",
       "projectDetails": "placeholder",
       "assignedTasks": []
     }

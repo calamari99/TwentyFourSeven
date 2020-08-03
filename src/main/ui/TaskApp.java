@@ -2,20 +2,19 @@ package ui;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.stream.JsonReader;
 import model.MasterTask;
 import model.Person;
 import model.SubTask;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
 import java.util.Scanner;
 // TaskApp methods class is taken after Teller
 
 public class TaskApp {
 
     //
-
+    private static final String ACCOUNTS_FILE = "./data/accounts.txt";
     private volatile MasterTask initMasterTask;
     private volatile SubTask initSubTask;
     private volatile Person initNewPerson;
@@ -26,27 +25,23 @@ public class TaskApp {
     public String stringMasterTask;
 
     // EFFECTS: runs the task app
-    public TaskApp() {
+    public TaskApp() throws FileNotFoundException {
         runTaskApp();
     }
 
     // REQUIRE: no spaces can be typed as input (for now)
     // MODIFIES: this
     // EFFECTS: runs app in user console with user input
-    private void runTaskApp() {
+    private void runTaskApp() throws FileNotFoundException {
 
-        String command = null;
-        Scanner consoleInput = new Scanner(System.in);
-        input = new Scanner(System.in);
-        while (keepGoing == true) {
-            displayInitial();
-            command = input.next();
-            command = command.toLowerCase();
+        loadMaster();
 
-            if (command.equals("q")) {
-                keepGoing = false;
-            } else {
-                processCommand(command);
+        if ((!masterTitle.equals(""))) {
+            displayMasterMenu();
+        } else {
+
+            while (keepGoing) {
+                loadFreshStart();
             }
         }
         System.out.println("session has ended");
@@ -136,7 +131,7 @@ public class TaskApp {
             prevSubTitle = selection;
             createSubTask(selection);
             initMasterTask.addSubTask(initSubTask);
-            convertMasterJSON();
+            convertMasterJson();
             displaySubMenu();
             break;
         }
@@ -183,7 +178,7 @@ public class TaskApp {
             if (!(selection == "")) {
                 createNewPerson(selection);
                 initSubTask.addPerson(initNewPerson);
-                convertMasterJSON();
+                convertMasterJson();
                 //System.out.println(initSubTask.assignedPersons.get(0).getSubTaskId());
                 break;
             }
@@ -210,7 +205,7 @@ public class TaskApp {
 
     // MODIFIES: masterData file
     // EFFECTS: updates and recreates masterData file
-    public void convertMasterJSON() {
+    public void convertMasterJson() {
         Gson gson =  new GsonBuilder().setPrettyPrinting().create();
         String stringMasterTask = gson.toJson(this.initMasterTask);
         System.out.println(stringMasterTask);
@@ -227,8 +222,40 @@ public class TaskApp {
         }
     }
 
-    public void loadMasterJSON() {
+    public String loadMasterJson() throws FileNotFoundException {
+        Gson gson = new Gson();
+        // read json file
+        JsonReader reader = new JsonReader(new FileReader("data\\masterData.JSON"));
+        MasterTask initMasterTask = gson.fromJson(reader, MasterTask.class);
+        System.out.println(initMasterTask.getTitle());
+        try {
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return initMasterTask.toString();
+    }
+
+    public void loadMaster() throws FileNotFoundException {
+        loadMasterJson();
 
     }
+
+    public void loadFreshStart() {
+        String command = null;
+        Scanner consoleInput = new Scanner(System.in);
+        input = new Scanner(System.in);
+
+        displayInitial();
+        command = input.next();
+        command = command.toLowerCase();
+
+        if (command.equals("q")) {
+            keepGoing = false;
+        } else {
+            processCommand(command);
+        }
+    }
 }
+
 

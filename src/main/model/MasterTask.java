@@ -2,6 +2,7 @@ package model;
 
 import model.SubTask;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,7 +13,7 @@ public class MasterTask {
     //String name; // creator name
     public String projectTitle;
     String projectDetails = "placeholder";
-    final ArrayList<SubTask> assignedTasks;
+    ArrayList<SubTask> assignedTasks;
 
     // EFFECTS: Constructs a MasterTask with a title, an empty list of SubTasks
     public MasterTask(String title) {
@@ -28,10 +29,11 @@ public class MasterTask {
         System.out.println(simpleDate.format(initDate)); https://www.tutorialspoint.com/java/java_date_time.htm*/
     }
 
-    // EFFECTS: Constructs a MasterTask with data stored in file
-    public MasterTask(String) {
+    // EFFECTS: Constructs a MasterTask from a file
+    public MasterTask(File file) {
 
     }
+
 
     // MODIFIES: this, project details;
     // EFFECTS: takes in user input and sets project detail variable to input, if empty return projectDetails

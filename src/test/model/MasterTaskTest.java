@@ -16,8 +16,8 @@ class MasterTaskTest {
     void runBefore() {
         testTask1 = new MasterTask("");
         testTask2 = new MasterTask("testingMasterTask");
-        subTask1 = new SubTask("");
-        subTask2 = new SubTask("testingSubTask");
+        subTask1 = new SubTask("sub1");
+        subTask2 = new SubTask("sub2");
     }
 
     @Test
@@ -48,5 +48,12 @@ class MasterTaskTest {
         assertEquals(testTask1.getProjectDetails(), "not empty again"); //not empty -> not empty
         testTask1.setProjectDetails("");
         assertEquals(testTask1.getProjectDetails(), ""); //not empty -> empty (makeshift way of deleting details)
+    }
+
+    @Test
+    void testGetSubNames() {
+        testTask2.addSubTask(subTask1);
+        testTask2.addSubTask(subTask2);
+        assertEquals(testTask2.getSubNames()," sub1 sub2");
     }
 }

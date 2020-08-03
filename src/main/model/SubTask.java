@@ -52,6 +52,7 @@ public class SubTask extends MasterTask {
         return names.toString();
     }
 
+    // EFFECTS: adds subTask to this subTask (not implemented)
     @Override
     public Boolean addSubTask(SubTask subTask) {
         if (!(this.subAssignedTasks.contains(subTask))) {

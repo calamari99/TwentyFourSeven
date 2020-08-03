@@ -21,6 +21,7 @@ public class TaskApp {
     public String masterTitle;
     public String prevSubTitle;
     Boolean keepGoing = true;
+    public String stringMasterTask;
 
     // EFFECTS: runs the task app
     public TaskApp() {
@@ -65,6 +66,7 @@ public class TaskApp {
     // EFFECTS: display menu after master Task has been created, asks for a master task name, changes display to
     //          master menu after name is entered
     private void displayAskMaster() {
+
         String selection = "";
 
         while (!(selection.equals("q"))) {
@@ -73,6 +75,7 @@ public class TaskApp {
             masterTitle = selection;
             selection = selection.toLowerCase();
             createMasterTask(selection);
+            convertMasterJson();
             System.out.println();
             if (!(selection == "")) {
                 displayMasterMenu();
@@ -90,18 +93,15 @@ public class TaskApp {
         String selection = "";
         while (!(selection.equals("q"))) {
             System.out.println("You are working on MasterTask: " + chooseMasterTitle());
-            System.out.println("\tv -> view subTasks");
-            System.out.println("\ts -> create a subTask");
-            //System.out.println("\tp to view people working on this task"); implement
-            System.out.println("\tq -> quit");
+            masterMenuCommands();
             selection = input.next();
             String masterTitle = selection;
             selection = selection.toLowerCase();
 
             if (selection.equals("v")) {
                 displaySubTasks();
-            }
-            if (selection.equals("s")) {
+                displayMasterMenu();
+            } else if (selection.equals("s")) {
                 displayAskSub();
             } else if (selection.equals("q")) {
                 keepGoing = false;
@@ -111,6 +111,13 @@ public class TaskApp {
             }
             selection = "q";
         }
+    }
+
+    // EFFECTS: prints out menu commands in console
+    private void masterMenuCommands() {
+        System.out.println("\tv -> view subTasks");
+        System.out.println("\ts -> create a subTask");
+        System.out.println("\tq -> quit");
     }
 
     // EFFECT: Returns master title from saved file if present, otherwise user input
@@ -124,7 +131,12 @@ public class TaskApp {
 
     // EFFECT: Views all subtasks under master tasks
     private void displaySubTasks() {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        stringMasterTask = gson.toJson(this.initMasterTask);
+        initMasterTask.getSubNames();
+        System.out.println(initMasterTask.subTaskNames);
 
+       //System.out.println(this.initMasterTask.getAssignedTasks().toString());
     }
 
     // EFFECTS: display menu after sub Task has been created, ask for a sub task name
@@ -149,18 +161,19 @@ public class TaskApp {
     private void displaySubMenu() {
         String selection = "";
         while (!(selection.equals("q"))) {
-            System.out.println("You are working on SubTask: " + prevSubTitle);
-            System.out.println("\tn -> assign new person to task");
-            System.out.println("\tr -> return to MasterTask Menu");
-            System.out.println("\tq -> quit");
+            subMenuCommands();
             selection = input.next();
             selection = selection.toLowerCase();
             if (selection.equals("n")) {
                 displayAddPerson();
-                break;
             }
             if (selection.equals("r")) {
                 displayMasterMenu();
+                break;
+            }
+            if (selection.equals("v")) {
+                //displayPeople();
+                displaySubMenu();
                 break;
             }
             if (selection.equals("q")) {
@@ -171,6 +184,21 @@ public class TaskApp {
         }
         keepGoing = false;
     }
+
+    private void subMenuCommands() {
+        System.out.println("You are working on SubTask: " + prevSubTitle);
+        System.out.println("\tn -> assign new person to task");
+        System.out.println("\tr -> return to MasterTask Menu");
+        System.out.println(("\tv -> view members assigned"));
+        System.out.println("\tq -> quit");
+    }
+
+    // still need to figure out:
+    // use current subtask, call getTeam memberNames
+/*    private void displayPeople() {
+        initSubTask.getTeamMemberNames();
+    }*/
+
 
     // EFFECTS: display new person menu, if text is entered, set text to persons name and print success message
     //          then return to the subtask menu
@@ -213,12 +241,12 @@ public class TaskApp {
     // EFFECTS: updates and recreates masterData file
     public void convertMasterJson() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String stringMasterTask = gson.toJson(this.initMasterTask);
-        System.out.println(stringMasterTask);
+        stringMasterTask = gson.toJson(this.initMasterTask);
+        //System.out.println(stringMasterTask);
         // creates writer
         try {
             Writer writer = new FileWriter(ACCOUNTS_FILE);
-            System.out.println(stringMasterTask);
+            //System.out.println(stringMasterTask);
             writer.write(stringMasterTask);
             writer.close();
             System.out.println("saved");
@@ -231,11 +259,15 @@ public class TaskApp {
     // EFFECTS: Resumes to master menu state if local data is present
     public void loadMasterJson() {
         readMasterJson();
-        String command = null;
+
         Scanner consoleInput = new Scanner(System.in);
         input = new Scanner(System.in);
         while (keepGoing) {
             displayMasterMenu();
+            if (!keepGoing) {
+                break;
+            }
+            String command;
             command = input.next();
             command = command.toLowerCase();
 
@@ -245,7 +277,6 @@ public class TaskApp {
                 processCommand(command);
             }
         }
-        System.out.println("session has ended");
 
     }
 
@@ -256,7 +287,7 @@ public class TaskApp {
             // read json file
             JsonReader reader = new JsonReader(new FileReader(ACCOUNTS_FILE));
             this.initMasterTask = gson.fromJson(reader, MasterTask.class);
-            System.out.println(initMasterTask.getTitle() + "has been loaded from stored file");
+            System.out.println(initMasterTask.getTitle() + " has been loaded from stored file");
             reader.close();
         } catch (IOException e) {
             while (keepGoing) {
@@ -282,6 +313,7 @@ public class TaskApp {
 
         System.out.println("session has ended");
     }
+
 }
 
 

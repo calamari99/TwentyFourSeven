@@ -43,7 +43,6 @@ public class TaskApp {
         displayAskMaster();
     }
 
-
     // MODIFIES: this
     // EFFECTS: processes user command
     private void processCommand(String command) {
@@ -66,7 +65,6 @@ public class TaskApp {
     // EFFECTS: display menu after master Task has been created, asks for a master task name, changes display to
     //          master menu after name is entered
     private void displayAskMaster() {
-
         String selection = "";
 
         while (!(selection.equals("q"))) {
@@ -185,6 +183,7 @@ public class TaskApp {
         keepGoing = false;
     }
 
+    // EFFECTS: shows sub menu commands in console.
     private void subMenuCommands() {
         System.out.println("You are working on SubTask: " + prevSubTitle);
         System.out.println("\tn -> assign new person to task");

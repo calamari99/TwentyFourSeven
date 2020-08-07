@@ -80,7 +80,7 @@ public class TaskApp {
                 break;
             }
             if (selection.equals("q")) {
-                keepGoing = false;
+                this.keepGoing = false;
             }
         }
     }
@@ -102,7 +102,7 @@ public class TaskApp {
             } else if (selection.equals("s")) {
                 displayAskSub();
             } else if (selection.equals("q")) {
-                keepGoing = false;
+                this.keepGoing = false;
                 break;
             } else {
                 System.out.println("invalid selection");
@@ -134,7 +134,7 @@ public class TaskApp {
         initMasterTask.getSubNames();
         System.out.println(initMasterTask.getSubNames());
 
-       //System.out.println(this.initMasterTask.getAssignedTasks().toString());
+        //System.out.println(this.initMasterTask.getAssignedTasks().toString());
     }
 
     // EFFECTS: display menu after sub Task has been created, ask for a sub task name
@@ -157,8 +157,8 @@ public class TaskApp {
     //                                     if r is selected return to master menu,
     //                                     else quit
     private void displaySubMenu() {
-        String selection = "";
-        while (!(selection.equals("q"))) {
+        String selection;
+        while (this.keepGoing = true) {
             subMenuCommands();
             selection = input.next();
             selection = selection.toLowerCase();
@@ -175,12 +175,11 @@ public class TaskApp {
                 break;
             }
             if (selection.equals("q")) {
+                this.keepGoing = false;
                 break;
-            } else {
-                System.out.println("Invalid Selection, Please enter again");
             }
         }
-        keepGoing = false;
+
     }
 
     // EFFECTS: shows sub menu commands in console.
@@ -200,25 +199,20 @@ public class TaskApp {
 
 
     // EFFECTS: display new person menu, if text is entered, set text to persons name and print success message
-    //          then return to the subtask menu
     private void displayAddPerson() {
         String selection = "";
-        while (!(selection.equals("q"))) {
-            System.out.println("Enter name of person");
-            selection = input.next();
-            selection = selection.toLowerCase();
+        System.out.println("Enter name of person");
+        selection = input.next();
+        selection = selection.toLowerCase();
 
-            if (!(selection == "")) {
-                createNewPerson(selection);
-                initSubTask.addPerson(initNewPerson);
-                convertMasterJson();
-                //System.out.println(initSubTask.assignedPersons.get(0).getSubTaskId());
-                break;
-            }
+        if (!(selection == "")) {
+            createNewPerson(selection);
+            initSubTask.addPerson(initNewPerson);
+            convertMasterJson();
+            //System.out.println(initSubTask.assignedPersons.get(0).getSubTaskId());
         }
         System.out.println(selection + " has been added to SubTask: " + prevSubTitle);
         System.out.println("\n");
-        displaySubMenu();
     }
 
     // EFFECTS: instantiates a MasterTask object
@@ -261,9 +255,9 @@ public class TaskApp {
 
         Scanner consoleInput = new Scanner(System.in);
         input = new Scanner(System.in);
-        while (keepGoing) {
+        while (this.keepGoing) {
             displayMasterMenu();
-            if (!keepGoing) {
+            if (!this.keepGoing) {
                 break;
             }
             String command;
@@ -271,7 +265,7 @@ public class TaskApp {
             command = command.toLowerCase();
 
             if (command.equals("q")) {
-                keepGoing = false;
+                this.keepGoing = false;
             } else {
                 processCommand(command);
             }
@@ -289,7 +283,7 @@ public class TaskApp {
             System.out.println(initMasterTask.getTitle() + " has been loaded from stored file");
             reader.close();
         } catch (IOException e) {
-            while (keepGoing) {
+            while (this.keepGoing) {
                 loadInitMenu();
             }
         }
@@ -305,7 +299,7 @@ public class TaskApp {
         command = command.toLowerCase();
 
         if (command.equals("q")) {
-            keepGoing = false;
+            this.keepGoing = false;
         } else {
             processCommand(command);
         }

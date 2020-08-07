@@ -17,7 +17,7 @@ public class MasterTask {
     public String projectTitle;
     String projectDetails = "placeholder";
     ArrayList<SubTask> assignedTasks;
-    public String subTaskNames;
+
 
 
     // EFFECTS: Constructs a MasterTask with a title, an empty list of SubTasks
@@ -60,6 +60,7 @@ public class MasterTask {
     }*/
 
     public String getSubNames() {
+        String subTaskNames;
         subTaskNames = "SubTasks:";
         for (SubTask subTask : assignedTasks) {
             subTaskNames = subTaskNames + " " + subTask.projectTitle;

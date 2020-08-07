@@ -132,7 +132,7 @@ public class TaskApp {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         stringMasterTask = gson.toJson(this.initMasterTask);
         initMasterTask.getSubNames();
-        System.out.println(initMasterTask.subTaskNames);
+        System.out.println(initMasterTask.getSubNames());
 
        //System.out.println(this.initMasterTask.getAssignedTasks().toString());
     }

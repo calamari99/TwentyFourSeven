@@ -16,8 +16,12 @@ public class MasterTask {
     //String name; // creator name
     public String projectTitle;
     String projectDetails = "placeholder";
-    ArrayList<SubTask> assignedTasks;
 
+    public ArrayList<SubTask> getAssignedTasks() {
+        return assignedTasks;
+    }
+
+    ArrayList<SubTask> assignedTasks;
 
 
     // EFFECTS: Constructs a MasterTask with a title, an empty list of SubTasks
@@ -68,6 +72,17 @@ public class MasterTask {
         return subTaskNames;
     }
 
+    public String indexSubNames() {
+        String subTaskNames;
+        int i = 1;
+        subTaskNames = "SubTasks:" + "\n";
+        for (SubTask subTask : assignedTasks) {
+            subTaskNames = subTaskNames + " " + "(" + i + ")  " + subTask.projectTitle + "\n";
+            i++;
+        }
+        return subTaskNames;
+    }
+
     // EFFECTS: returns task title
     public String getTitle() {
         return projectTitle;
@@ -77,7 +92,6 @@ public class MasterTask {
     public String getProjectDetails() {
         return projectDetails;
     }
-
 
 
 }

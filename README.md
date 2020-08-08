@@ -5,7 +5,7 @@ I have taken ispiration from my a few of my favorite tools, Slack and Asana, and
 
 #### Basic Feature Include:
 - creating a master task
-- creating tasks under master tasks
+- creating/removing tasks under master task
 - assigning people to each task
 - etc.
 
@@ -27,3 +27,4 @@ I have taken ispiration from my a few of my favorite tools, Slack and Asana, and
 - as a user, I want to be able to reload my saved MasterTask into interface
 
 ### Stage 3:
+

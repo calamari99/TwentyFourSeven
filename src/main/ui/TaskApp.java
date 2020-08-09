@@ -74,6 +74,7 @@ public class TaskApp {
         panel.repaint();
     }
 
+    // EFFECTS: asks for mastername page
     public void promptMasterName() {
         resetPage();
         JLabel heading = new JLabel("Name your project below");
@@ -90,22 +91,75 @@ public class TaskApp {
         panel.add(submit);
     }
 
+    // EFFECT: receives an action from mastername page and changes title
     public void initMasterMenu(ActionEvent e) {
         frame.setTitle("MasterTask Menu: Choose the methods below"); // test if button works
         initMasterPage();
-
     }
 
+    // EFFECT: displays master menu option with buttons to other pages
     public void initMasterPage() {
         resetPage();
         JButton createButton = new JButton("Create a Subtask");
+        createButton.addActionListener(this::newSubEvent);
+
         JButton deleteButton = new JButton("Delete a Subtask");
         JButton viewButton = new JButton("View Subtasks");
+
 
         panel.add(createButton);
         panel.add(deleteButton);
         panel.add(viewButton);
     }
+
+    //
+    public void newSubEvent(ActionEvent e) {
+        promptSubName();
+        frame.setTitle("changed"); // test if button works
+    }
+
+    // Asks for subtask name
+    public void promptSubName() {
+        resetPage();
+        JLabel heading = new JLabel("Name your subTask below");
+        JTextField userInput = new JTextField("");
+        JButton submit = new JButton("submit");
+        String subTaskName = userInput.getText();
+        submit.addActionListener(this::initSubMenu);
+        frame.getRootPane().setDefaultButton(submit);
+        heading.setHorizontalAlignment(JLabel.CENTER);
+
+        panel.add(heading);
+        panel.add(userInput);
+        panel.add(submit);
+    }
+
+    // EFFECT: receives an action from mastername page and changes title
+    public void initSubMenu(ActionEvent e) {
+        frame.setTitle("SubTask Menu: Choose the methods below"); // test if button works
+        initSubPage();
+
+    }
+
+    // EFFECT: displays sub menu with buttons for each task!
+    public void initSubPage() {
+        resetPage();
+        JLabel subTaskName = new JLabel("Subtask Name");
+
+        JButton createButton = new JButton("Assign a person to this task");
+        panel.add(createButton);
+
+        JButton viewPerson = new JButton("View People Assigned");
+        panel.add(viewPerson);
+
+        //createButton.addActionListener(this::promptSubName);
+        //JButton addDetails = new JButton("Add Details");
+        //panel.add(addDetails);
+
+    }
+
+
+
 
 
     // REQUIRE: no spaces can be typed as input (for now)

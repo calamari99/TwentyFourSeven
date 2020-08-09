@@ -10,6 +10,7 @@ import model.SubTask;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.*;
@@ -38,17 +39,21 @@ public class TaskApp {
     JFrame frame;
     JPanel panel;
 
+    // EFFECT: initializes gui
     public void guiApp() {
         frame = new JFrame();
         panel = new JPanel();
         JLabel welcomeText = new JLabel("Welcome to TwentyFour7");
         welcomeText.setHorizontalAlignment(JLabel.CENTER);
+
         JButton newButton = new JButton("Create a new Master Task");
         newButton.addActionListener(this::newMasterEvent);
+
         JButton loadButton = new JButton("Reload a Master Task");
         panel.setBorder(BorderFactory.createEmptyBorder(
                 40, 40, 40, 40
         ));
+
         panel.setLayout(new GridLayout(3, 1));
         panel.add(welcomeText);
         panel.add(newButton);
@@ -64,7 +69,7 @@ public class TaskApp {
 
     public void newMasterEvent(ActionEvent e) {
         promptMasterName();
-        frame.setTitle("changed"); // test if button works
+        frame.setTitle("enter masterTask name"); // test if button works
     }
 
     // EFFECT: resets panel to blank
@@ -79,10 +84,19 @@ public class TaskApp {
         resetPage();
         JLabel heading = new JLabel("Name your project below");
         JTextField userInput = new JTextField("");
-        JButton submit = new JButton("submit");
-        String projectName = userInput.getText();
 
-        submit.addActionListener(this::initMasterMenu);
+        JButton submit = new JButton("submit");
+        submit.addActionListener(new ActionListener() {
+
+            // EFFECT: receives an action from mastername page and saves title upon pressing submit/enter
+            public void actionPerformed(ActionEvent e) {
+                String projectName = userInput.getText();
+                createMasterTask(projectName);
+                updateMasterJson();
+                frame.setTitle("MasterTask Menu: Choose the methods below"); // test if button works
+                initMasterPage();
+            }
+        });
         frame.getRootPane().setDefaultButton(submit);
         heading.setHorizontalAlignment(JLabel.CENTER);
 
@@ -91,11 +105,6 @@ public class TaskApp {
         panel.add(submit);
     }
 
-    // EFFECT: receives an action from mastername page and changes title
-    public void initMasterMenu(ActionEvent e) {
-        frame.setTitle("MasterTask Menu: Choose the methods below"); // test if button works
-        initMasterPage();
-    }
 
     // EFFECT: displays master menu option with buttons to other pages
     public void initMasterPage() {
@@ -104,15 +113,15 @@ public class TaskApp {
         createButton.addActionListener(this::newSubEvent);
 
         JButton deleteButton = new JButton("Delete a Subtask");
-        JButton viewButton = new JButton("View Subtasks");
+        deleteButton.addActionListener(this::deleteSubEvent);
 
+        JButton viewButton = new JButton("View Subtasks");
 
         panel.add(createButton);
         panel.add(deleteButton);
         panel.add(viewButton);
     }
 
-    //
     public void newSubEvent(ActionEvent e) {
         promptSubName();
         frame.setTitle("changed"); // test if button works
@@ -124,8 +133,19 @@ public class TaskApp {
         JLabel heading = new JLabel("Name your subTask below");
         JTextField userInput = new JTextField("");
         JButton submit = new JButton("submit");
-        String subTaskName = userInput.getText();
-        submit.addActionListener(this::initSubMenu);
+
+        submit.addActionListener(new ActionListener() {
+            // EFFECT: receives an action from mastername page and changes title
+            public void actionPerformed(ActionEvent e) {
+                String subTaskName = userInput.getText();
+                createSubTask(subTaskName);
+                initMasterTask.addSubTask(initSubTask);
+                updateMasterJson();
+                frame.setTitle("SubTask Menu: Choose the methods below"); // test if button works
+                initSubPage(subTaskName);
+            }
+        });
+
         frame.getRootPane().setDefaultButton(submit);
         heading.setHorizontalAlignment(JLabel.CENTER);
 
@@ -134,32 +154,46 @@ public class TaskApp {
         panel.add(submit);
     }
 
-    // EFFECT: receives an action from mastername page and changes title
-    public void initSubMenu(ActionEvent e) {
-        frame.setTitle("SubTask Menu: Choose the methods below"); // test if button works
-        initSubPage();
+    public void deleteSubEvent(ActionEvent e) {
+        promptDeletePage();
+        frame.setTitle("changed"); // test if button works
+    }
+
+    public void promptDeletePage() {
 
     }
 
+
     // EFFECT: displays sub menu with buttons for each task!
-    public void initSubPage() {
+    public void initSubPage(String name) {
         resetPage();
-        JLabel subTaskName = new JLabel("Subtask Name");
+        JLabel subTaskName = new JLabel("You are on " + name);
+        subTaskName.setHorizontalAlignment(JLabel.CENTER);
+
+        panel.setLayout(new GridLayout(5, 1));
+        panel.add(subTaskName);
 
         JButton createButton = new JButton("Assign a person to this task");
         panel.add(createButton);
 
-        JButton viewPerson = new JButton("View People Assigned");
-        panel.add(viewPerson);
+        JButton viewPersonButton = new JButton("View People Assigned");
+        panel.add(viewPersonButton);
+
+        JButton returnButton = new JButton("Return to main task");
+        returnButton.addActionListener(this::displayMaster);
+        panel.add(returnButton);
+
+
 
         //createButton.addActionListener(this::promptSubName);
         //JButton addDetails = new JButton("Add Details");
         //panel.add(addDetails);
-
     }
 
-
-
+    public void displayMaster(ActionEvent e) {
+        initMasterPage();
+        frame.setTitle("changed"); // test if button works
+    }
 
 
     // REQUIRE: no spaces can be typed as input (for now)

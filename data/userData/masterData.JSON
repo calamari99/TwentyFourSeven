@@ -1,0 +1,15 @@
+{
+  "projectTitle": "master",
+  "projectDetails": "placeholder",
+  "assignedTasks": [
+    {
+      "subTaskId": 1,
+      "assignedPersons": [],
+      "teamMemberNames": "No Members Assigned!",
+      "subAssignedTasks": [],
+      "projectTitle": "sub1",
+      "projectDetails": "placeholder",
+      "assignedTasks": []
+    }
+  ]
+}

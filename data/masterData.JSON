@@ -1,0 +1,48 @@
+{
+  "projectTitle": "master",
+  "projectDetails": "placeholder",
+  "assignedTasks": [
+    {
+      "subTaskId": 1,
+      "assignedPersons": [
+        {
+          "name": "noob",
+          "personId": 1
+        }
+      ],
+      "teamMemberNames": "No Members Assigned!",
+      "subAssignedTasks": [],
+      "projectTitle": "sub1",
+      "projectDetails": "placeholder",
+      "assignedTasks": []
+    },
+    {
+      "subTaskId": 2,
+      "assignedPersons": [
+        {
+          "name": "charlie",
+          "personId": 2
+        }
+      ],
+      "teamMemberNames": "No Members Assigned!",
+      "subAssignedTasks": [],
+      "projectTitle": "sub2",
+      "projectDetails": "placeholder",
+      "assignedTasks": []
+    },
+    {
+      "subTaskId": 3,
+      "assignedPersons": [
+        {
+          "name": "fizz",
+          "personId": 3
+        }
+      ],
+      "teamMemberNames": "No Members Assigned!",
+      "subAssignedTasks": [],
+      "projectTitle": "sub3",
+      "projectDetails": "placeholder",
+      "assignedTasks": []
+    }
+  ]
+}

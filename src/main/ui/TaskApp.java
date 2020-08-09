@@ -7,13 +7,16 @@ import model.MasterTask;
 import model.Person;
 import model.SubTask;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.io.*;
 import java.util.Scanner;
 // TaskApp methods class is taken after Teller
 
 public class TaskApp {
 
-    private static final String ACCOUNTS_FILE = "./data/masterData.JSON";
+    private static final String ACCOUNTS_FILE = "./data/userData/masterData.JSON";
     private volatile MasterTask initMasterTask;
     private volatile SubTask initSubTask;
     private volatile Person initNewPerson;
@@ -25,8 +28,41 @@ public class TaskApp {
 
     // EFFECTS: runs the task app
     public TaskApp() {
+        guiApp();
         runTaskApp();
     }
+
+    JFrame frame;
+    JPanel panel;
+
+    private void guiApp() {
+        frame = new JFrame();
+        panel = new JPanel();
+        JLabel welcomeText = new JLabel("Welcome to TwentyFour7");
+        welcomeText.setHorizontalAlignment(JLabel.CENTER);
+        JButton newButton = new JButton("Create a new Master Task");
+        newButton.addActionListener(this::newMasterEvent);
+        JButton loadButton = new JButton("Reload a Master Task");
+        panel.setBorder(BorderFactory.createEmptyBorder(
+                40, 40, 10, 40
+        ));
+        panel.setLayout(new GridLayout(3, 1));
+        panel.add(welcomeText);
+        panel.add(newButton);
+        panel.add(loadButton);
+
+        frame.setSize(600, 600);
+        frame.add(panel, BorderLayout.CENTER);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("TwentyFour7");
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+    public void newMasterEvent(ActionEvent e) {
+        frame.setTitle("changed"); // test if button works
+    }
+
 
     // REQUIRE: no spaces can be typed as input (for now)
     // MODIFIES: this

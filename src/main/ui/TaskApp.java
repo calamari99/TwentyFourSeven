@@ -10,6 +10,8 @@ import model.SubTask;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.*;
 import java.util.Scanner;
 // TaskApp methods class is taken after Teller
@@ -25,6 +27,7 @@ public class TaskApp {
     public String prevSubTitle;
     Boolean keepGoing = true;
     public String stringMasterTask;
+    public NewMasterPage initNewPage;
 
     // EFFECTS: runs the task app
     public TaskApp() {
@@ -35,7 +38,7 @@ public class TaskApp {
     JFrame frame;
     JPanel panel;
 
-    private void guiApp() {
+    public void guiApp() {
         frame = new JFrame();
         panel = new JPanel();
         JLabel welcomeText = new JLabel("Welcome to TwentyFour7");
@@ -44,7 +47,7 @@ public class TaskApp {
         newButton.addActionListener(this::newMasterEvent);
         JButton loadButton = new JButton("Reload a Master Task");
         panel.setBorder(BorderFactory.createEmptyBorder(
-                40, 40, 10, 40
+                40, 40, 40, 40
         ));
         panel.setLayout(new GridLayout(3, 1));
         panel.add(welcomeText);
@@ -60,7 +63,48 @@ public class TaskApp {
     }
 
     public void newMasterEvent(ActionEvent e) {
+        promptMasterName();
         frame.setTitle("changed"); // test if button works
+    }
+
+    // EFFECT: resets panel to blank
+    public void resetPage() {
+        this.panel.removeAll();
+        panel.revalidate();
+        panel.repaint();
+    }
+
+    public void promptMasterName() {
+        resetPage();
+        JLabel heading = new JLabel("Name your project below");
+        JTextField userInput = new JTextField("");
+        JButton submit = new JButton("submit");
+        String projectName = userInput.getText();
+
+        submit.addActionListener(this::initMasterMenu);
+        frame.getRootPane().setDefaultButton(submit);
+        heading.setHorizontalAlignment(JLabel.CENTER);
+
+        panel.add(heading);
+        panel.add(userInput);
+        panel.add(submit);
+    }
+
+    public void initMasterMenu(ActionEvent e) {
+        frame.setTitle("MasterTask Menu: Choose the methods below"); // test if button works
+        initMasterPage();
+
+    }
+
+    public void initMasterPage() {
+        resetPage();
+        JButton createButton = new JButton("Create a Subtask");
+        JButton deleteButton = new JButton("Delete a Subtask");
+        JButton viewButton = new JButton("View Subtasks");
+
+        panel.add(createButton);
+        panel.add(deleteButton);
+        panel.add(viewButton);
     }
 
 

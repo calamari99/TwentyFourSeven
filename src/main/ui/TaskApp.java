@@ -51,16 +51,19 @@ public class TaskApp {
 
         JButton loadButton = new JButton("Reload a Master Task");
         panel.setBorder(BorderFactory.createEmptyBorder(
-                40, 40, 40, 40
+                200, 400, 200, 400
         ));
 
-        panel.setLayout(new GridLayout(3, 1));
+        loadButton.addActionListener(this::loadMasterTask);
+
+        panel.setLayout(new GridLayout(5, 1));
         panel.add(welcomeText);
         panel.add(newButton);
         panel.add(loadButton);
 
-        frame.setSize(600, 600);
+        frame.setSize(800, 400);
         frame.add(panel, BorderLayout.CENTER);
+        frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("TwentyFour7");
         frame.pack();
@@ -72,11 +75,41 @@ public class TaskApp {
         frame.setTitle("enter masterTask name"); // test if button works
     }
 
+    public void loadMasterTask(ActionEvent e) {
+        try {
+            Gson gson = new Gson();
+            // read json file
+            JsonReader reader = new JsonReader(new FileReader(ACCOUNTS_FILE));
+
+            this.initMasterTask = gson.fromJson(reader, MasterTask.class);
+            initMasterPage();
+            reader.close();
+        } catch (FileNotFoundException ex) {
+            noDataPage();
+        } catch (IOException exception) {
+            //
+        }
+    }
+
+    public void noDataPage() {
+        resetPage();
+        JLabel heading = new JLabel("File was not found");
+        heading.setHorizontalAlignment(JLabel.CENTER);
+        panel.add(heading);
+        JLabel heading2 = new JLabel("Return to main menu and create a new task");
+        heading2.setHorizontalAlignment(JLabel.CENTER);
+        panel.add(heading2);
+        returnButtonDelete();
+
+    }
+
     // EFFECT: resets panel to blank
     public void resetPage() {
         this.panel.removeAll();
+        panel.setLayout(new GridLayout(5, 1));
         panel.revalidate();
         panel.repaint();
+
     }
 
     // EFFECTS: asks for mastername page
@@ -119,8 +152,6 @@ public class TaskApp {
 
         JButton viewButton = new JButton("View Subtasks");
         viewButton.addActionListener(this::viewSubEvent);
-
-        panel.setLayout(new GridLayout(4, 1));
         panel.add(heading);
         panel.add(createButton);
         panel.add(deleteButton);
@@ -165,7 +196,7 @@ public class TaskApp {
 
     public void promptDeletePage() {
         resetPage();
-        JLabel heading = new JLabel("Enter the corresponding # to delete");
+        JLabel heading = new JLabel("Enter a subtask '#' to delete");
         heading.setHorizontalAlignment(JLabel.CENTER);
         panel.add(heading);
 
@@ -174,14 +205,17 @@ public class TaskApp {
         sub.setHorizontalAlignment(JLabel.CENTER);
         panel.add(sub);
 
-
         frame.setTitle("delete subTask"); // test if button works
-
         JTextField userInput = new JTextField("");
         panel.add(userInput);
 
+        submitButtonDelete(userInput);
+        returnButtonDelete();
+    }
+
+    private void submitButtonDelete(JTextField userInput) {
+
         JButton submit = new JButton("submit");
-        panel.add(submit);
 
         submit.addActionListener(new ActionListener() {
             // EFFECT: receives an action from mastername page and changes title
@@ -192,10 +226,21 @@ public class TaskApp {
                 updateMasterJson();
                 initMasterPage();
             }
-
         });
+        panel.add(submit);
         frame.getRootPane().setDefaultButton(submit);
+    }
 
+    private void returnButtonDelete() {
+        ImageIcon backIcon = new ImageIcon("data\\icons\\backbutton.png");
+        JButton returnButton = new JButton(backIcon);
+        returnButton.addActionListener(new ActionListener() {
+            // EFFECT: receives an action from mastername page and changes title
+            public void actionPerformed(ActionEvent e) {
+                initMasterPage();
+            }
+        });
+        panel.add(returnButton);
     }
 
     public void viewSubEvent(ActionEvent e) {
@@ -212,16 +257,16 @@ public class TaskApp {
         heading.setHorizontalAlignment(JLabel.CENTER);
         panel.add(heading);
 
-        JButton submit = new JButton("return");
-        submit.addActionListener(new ActionListener() {
+        JButton returnButton = new JButton("return");
+        returnButton.addActionListener(new ActionListener() {
             // EFFECT: receives an action from mastername page and changes title
             public void actionPerformed(ActionEvent e) {
                 initMasterPage();
             }
         });
 
-        frame.getRootPane().setDefaultButton(submit);
-        panel.add(submit);
+        frame.getRootPane().setDefaultButton(returnButton);
+        panel.add(returnButton);
     }
 
     // EFFECT: displays sub menu with buttons for each task!
@@ -230,7 +275,6 @@ public class TaskApp {
         JLabel subTaskName = new JLabel("You are on: " + name);
         subTaskName.setHorizontalAlignment(JLabel.CENTER);
 
-        panel.setLayout(new GridLayout(5, 1));
         panel.add(subTaskName);
 
         JButton createButton = new JButton("Assign Person");

@@ -1,13 +1,22 @@
 {
-  "projectTitle": "sub1",
+  "projectTitle": "MasterTest",
   "projectDetails": "placeholder",
   "assignedTasks": [
+    {
+      "subTaskId": 1,
+      "assignedPersons": [],
+      "teamMemberNames": "No Members Assigned!",
+      "subAssignedTasks": [],
+      "projectTitle": "sub1",
+      "projectDetails": "placeholder",
+      "assignedTasks": []
+    },
     {
       "subTaskId": 2,
       "assignedPersons": [],
       "teamMemberNames": "No Members Assigned!",
       "subAssignedTasks": [],
-      "projectTitle": "sub`",
+      "projectTitle": "sub2",
       "projectDetails": "placeholder",
       "assignedTasks": []
     },
@@ -16,7 +25,7 @@
       "assignedPersons": [],
       "teamMemberNames": "No Members Assigned!",
       "subAssignedTasks": [],
-      "projectTitle": "sub2",
+      "projectTitle": "sub3",
       "projectDetails": "placeholder",
       "assignedTasks": []
     }

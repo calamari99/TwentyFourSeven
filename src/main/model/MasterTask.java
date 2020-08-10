@@ -77,7 +77,7 @@ public class MasterTask {
         int i = 1;
         subTaskNames = "SubTasks:" + "\n";
         for (SubTask subTask : assignedTasks) {
-            subTaskNames = subTaskNames + " " + "(" + i + ")  " + subTask.projectTitle + "\n";
+            subTaskNames = subTaskNames + " " + "(" + i + ".) **" + subTask.projectTitle + "**\n";
             i++;
         }
         return subTaskNames;

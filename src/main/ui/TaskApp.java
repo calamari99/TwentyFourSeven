@@ -108,6 +108,8 @@ public class TaskApp {
 
     // EFFECT: displays master menu option with buttons to other pages
     public void initMasterPage() {
+        JLabel heading = new JLabel(initMasterTask.getTitle());
+        heading.setHorizontalAlignment(JLabel.CENTER);
         resetPage();
         JButton createButton = new JButton("Create a Subtask");
         createButton.addActionListener(this::newSubEvent);
@@ -116,7 +118,10 @@ public class TaskApp {
         deleteButton.addActionListener(this::deleteSubEvent);
 
         JButton viewButton = new JButton("View Subtasks");
+        viewButton.addActionListener(this::viewSubEvent);
 
+        panel.setLayout(new GridLayout(4, 1));
+        panel.add(heading);
         panel.add(createButton);
         panel.add(deleteButton);
         panel.add(viewButton);
@@ -124,12 +129,12 @@ public class TaskApp {
 
     public void newSubEvent(ActionEvent e) {
         promptSubName();
-        frame.setTitle("changed"); // test if button works
     }
 
     // Asks for subtask name
     public void promptSubName() {
         resetPage();
+        frame.setTitle("subTask creation"); // test if button works
         JLabel heading = new JLabel("Name your subTask below");
         JTextField userInput = new JTextField("");
         JButton submit = new JButton("submit");
@@ -156,24 +161,79 @@ public class TaskApp {
 
     public void deleteSubEvent(ActionEvent e) {
         promptDeletePage();
-        frame.setTitle("changed"); // test if button works
     }
 
     public void promptDeletePage() {
+        resetPage();
+        JLabel heading = new JLabel("Enter the corresponding # to delete");
+        heading.setHorizontalAlignment(JLabel.CENTER);
+        panel.add(heading);
+
+        String subNames = initMasterTask.indexSubNames();
+        JLabel sub = new JLabel(subNames);
+        sub.setHorizontalAlignment(JLabel.CENTER);
+        panel.add(sub);
+
+
+        frame.setTitle("delete subTask"); // test if button works
+
+        JTextField userInput = new JTextField("");
+        panel.add(userInput);
+
+        JButton submit = new JButton("submit");
+        panel.add(submit);
+
+        submit.addActionListener(new ActionListener() {
+            // EFFECT: receives an action from mastername page and changes title
+            public void actionPerformed(ActionEvent e) {
+                String subTaskName = userInput.getText();
+                int num = Integer.parseInt(subTaskName);
+                deleteSubtaskJson(num);
+                updateMasterJson();
+                initMasterPage();
+            }
+
+        });
+        frame.getRootPane().setDefaultButton(submit);
 
     }
 
+    public void viewSubEvent(ActionEvent e) {
+        promptViewPage();
+
+    }
+
+    public void promptViewPage() {
+        resetPage();
+        frame.setTitle("view subTasks"); // test if button works
+
+        String subNames = initMasterTask.indexSubNames();
+        JLabel heading = new JLabel(subNames);
+        heading.setHorizontalAlignment(JLabel.CENTER);
+        panel.add(heading);
+
+        JButton submit = new JButton("return");
+        submit.addActionListener(new ActionListener() {
+            // EFFECT: receives an action from mastername page and changes title
+            public void actionPerformed(ActionEvent e) {
+                initMasterPage();
+            }
+        });
+
+        frame.getRootPane().setDefaultButton(submit);
+        panel.add(submit);
+    }
 
     // EFFECT: displays sub menu with buttons for each task!
     public void initSubPage(String name) {
         resetPage();
-        JLabel subTaskName = new JLabel("You are on " + name);
+        JLabel subTaskName = new JLabel("You are on: " + name);
         subTaskName.setHorizontalAlignment(JLabel.CENTER);
 
         panel.setLayout(new GridLayout(5, 1));
         panel.add(subTaskName);
 
-        JButton createButton = new JButton("Assign a person to this task");
+        JButton createButton = new JButton("Assign Person");
         panel.add(createButton);
 
         JButton viewPersonButton = new JButton("View People Assigned");
@@ -182,7 +242,6 @@ public class TaskApp {
         JButton returnButton = new JButton("Return to main task");
         returnButton.addActionListener(this::displayMaster);
         panel.add(returnButton);
-
 
 
         //createButton.addActionListener(this::promptSubName);
@@ -312,11 +371,11 @@ public class TaskApp {
         }
     }
 
+    // EFFECT: deletes subtask at index n-1
     private void deleteSubtaskJson(int n) {
         initMasterTask.getAssignedTasks().remove(n - 1);
-        System.out.println("Subtask " + n + " was removed");
+        //System.out.println("Subtask " + n + " was removed");
         updateMasterJson();
-
     }
 
     private void listOutSubtasks() {

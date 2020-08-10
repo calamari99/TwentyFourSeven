@@ -7,7 +7,16 @@
       "assignedPersons": [],
       "teamMemberNames": "No Members Assigned!",
       "subAssignedTasks": [],
-      "projectTitle": "sub1",
+      "projectTitle": "s1",
+      "projectDetails": "placeholder",
+      "assignedTasks": []
+    },
+    {
+      "subTaskId": 2,
+      "assignedPersons": [],
+      "teamMemberNames": "No Members Assigned!",
+      "subAssignedTasks": [],
+      "projectTitle": "s2",
       "projectDetails": "placeholder",
       "assignedTasks": []
     }

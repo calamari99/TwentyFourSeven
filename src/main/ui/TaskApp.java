@@ -41,6 +41,7 @@ public class TaskApp {
 
     // EFFECT: initializes gui
     public void guiApp() {
+        panel = new JPanel();
         frame = new JFrame();
         frame.pack();
         frame.setSize(600, 650);
@@ -56,16 +57,17 @@ public class TaskApp {
     }
 
     private void panelSetUp() {
+        resetPage();
         JLabel welcomeText = new JLabel("Welcome to TwentyFour7");
         welcomeText.setHorizontalAlignment(JLabel.CENTER);
 
         JButton newButton = new JButton("Create a new Master Task");
         newButton.addActionListener(this::newMasterEvent);
 
-        JButton loadButton = new JButton("Reload a Master Task");
+        JButton loadButton = new JButton("Reload your previous Master Task");
 
         loadButton.addActionListener(this::loadMasterTask);
-        panel = new JPanel();
+
 
         panel.setBorder(BorderFactory.createEmptyBorder(
                 50, 110, 50, 110
@@ -100,16 +102,17 @@ public class TaskApp {
         }
     }
 
+    // EFFECT: displays no data page from home -> load
     public void noDataPage() {
         resetPage();
         JLabel heading = new JLabel("File was not found");
         heading.setHorizontalAlignment(JLabel.CENTER);
         panel.add(heading);
+
         JLabel heading2 = new JLabel("Return to main menu and create a new task");
         heading2.setHorizontalAlignment(JLabel.CENTER);
         panel.add(heading2);
-        returnButtonDelete();
-
+        returnPanelInit();
     }
 
     // EFFECT: resets panel to blank
@@ -127,7 +130,8 @@ public class TaskApp {
         JLabel heading = new JLabel("Name your project below");
         JTextField userInput = new JTextField("");
 
-        JButton submit = new JButton("submit");
+        ImageIcon deleteIcon = new ImageIcon("data\\icons\\backbuttonright.png");
+        JButton submit = new JButton(deleteIcon);
         submit.addActionListener(new ActionListener() {
 
             // EFFECT: receives an action from mastername page and saves title upon pressing submit/enter
@@ -167,6 +171,7 @@ public class TaskApp {
         panel.add(viewButton);
     }
 
+    // EFFECT: triggers from pressing new subtask
     public void newSubEvent(ActionEvent e) {
         promptSubName();
     }
@@ -200,10 +205,12 @@ public class TaskApp {
         returnButtonDelete();
     }
 
+    // EFFECT: triggers from clicking delete sub task
     public void deleteSubEvent(ActionEvent e) {
         promptDeletePage();
     }
 
+    // EFFECT: displays delete subtask page
     public void promptDeletePage() {
         resetPage();
         JLabel heading = new JLabel("Enter a subtask '#' and click right");
@@ -223,8 +230,8 @@ public class TaskApp {
         returnButtonDelete();
     }
 
+    // EFFECT: takes user input and deletes subtask from JSON
     private void submitButtonDelete(JTextField userInput) {
-
         ImageIcon deleteIcon = new ImageIcon("data\\icons\\backbuttonright.png");
         JButton submit = new JButton(deleteIcon);
         submit.addActionListener(new ActionListener() {
@@ -241,6 +248,8 @@ public class TaskApp {
         frame.getRootPane().setDefaultButton(submit);
     }
 
+    // REQUIRES: clicked from any page but the noDataPage
+    // EFFECT: When return button clicked, prompt master menu
     private void returnButtonDelete() {
         ImageIcon backIcon = new ImageIcon("data\\icons\\backbutton.png");
         JButton returnButton = new JButton(backIcon);
@@ -253,11 +262,25 @@ public class TaskApp {
         panel.add(returnButton);
     }
 
+    private void returnPanelInit() {
+        ImageIcon backIcon = new ImageIcon("data\\icons\\backbutton.png");
+        JButton returnButton = new JButton(backIcon);
+        returnButton.addActionListener(new ActionListener() {
+            // EFFECT: receives an action from mastername page and changes title
+            public void actionPerformed(ActionEvent e) {
+                panelSetUp();
+            }
+        });
+        panel.add(returnButton);
+    }
+
+    // EFFECT: triggers from clicking view subtasks
     public void viewSubEvent(ActionEvent e) {
         promptViewPage();
 
     }
 
+    // EFFECTS: displays view page for subtasks
     public void promptViewPage() {
         resetPage();
         frame.setTitle("view subTasks"); // test if button works
@@ -641,6 +664,8 @@ public class TaskApp {
 
         System.out.println("session has ended");
     }
+
+
 
 
 }

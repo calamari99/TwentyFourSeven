@@ -42,7 +42,20 @@ public class TaskApp {
     // EFFECT: initializes gui
     public void guiApp() {
         frame = new JFrame();
-        panel = new JPanel();
+        frame.pack();
+        frame.setSize(600, 650);
+        frame.setContentPane(new JLabel(new ImageIcon("data\\icons\\cherryblossoms2.jpg")));
+
+        panelSetUp();
+
+        frame.add(panel, BorderLayout.CENTER);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("TwentyFour7");
+        frame.setVisible(true);
+    }
+
+    private void panelSetUp() {
         JLabel welcomeText = new JLabel("Welcome to TwentyFour7");
         welcomeText.setHorizontalAlignment(JLabel.CENTER);
 
@@ -50,24 +63,20 @@ public class TaskApp {
         newButton.addActionListener(this::newMasterEvent);
 
         JButton loadButton = new JButton("Reload a Master Task");
-        panel.setBorder(BorderFactory.createEmptyBorder(
-                200, 400, 200, 400
-        ));
 
         loadButton.addActionListener(this::loadMasterTask);
+        panel = new JPanel();
 
+        panel.setBorder(BorderFactory.createEmptyBorder(
+                50, 110, 50, 110
+        ));
+
+        panel.setSize(600, 300);
         panel.setLayout(new GridLayout(5, 1));
         panel.add(welcomeText);
         panel.add(newButton);
         panel.add(loadButton);
-
-        frame.setSize(800, 400);
-        frame.add(panel, BorderLayout.CENTER);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("TwentyFour7");
-        frame.pack();
-        frame.setVisible(true);
+        panel.setOpaque(false);
     }
 
     public void newMasterEvent(ActionEvent e) {
@@ -168,8 +177,8 @@ public class TaskApp {
         frame.setTitle("subTask creation"); // test if button works
         JLabel heading = new JLabel("Name your subTask below");
         JTextField userInput = new JTextField("");
-        JButton submit = new JButton("submit");
-
+        ImageIcon deleteIcon = new ImageIcon("data\\icons\\backbuttonright.png");
+        JButton submit = new JButton(deleteIcon);
         submit.addActionListener(new ActionListener() {
             // EFFECT: receives an action from mastername page and changes title
             public void actionPerformed(ActionEvent e) {
@@ -188,6 +197,7 @@ public class TaskApp {
         panel.add(heading);
         panel.add(userInput);
         panel.add(submit);
+        returnButtonDelete();
     }
 
     public void deleteSubEvent(ActionEvent e) {
@@ -196,7 +206,7 @@ public class TaskApp {
 
     public void promptDeletePage() {
         resetPage();
-        JLabel heading = new JLabel("Enter a subtask '#' to delete");
+        JLabel heading = new JLabel("Enter a subtask '#' and click right");
         heading.setHorizontalAlignment(JLabel.CENTER);
         panel.add(heading);
 
@@ -215,8 +225,8 @@ public class TaskApp {
 
     private void submitButtonDelete(JTextField userInput) {
 
-        JButton submit = new JButton("submit");
-
+        ImageIcon deleteIcon = new ImageIcon("data\\icons\\backbuttonright.png");
+        JButton submit = new JButton(deleteIcon);
         submit.addActionListener(new ActionListener() {
             // EFFECT: receives an action from mastername page and changes title
             public void actionPerformed(ActionEvent e) {
@@ -257,7 +267,8 @@ public class TaskApp {
         heading.setHorizontalAlignment(JLabel.CENTER);
         panel.add(heading);
 
-        JButton returnButton = new JButton("return");
+        ImageIcon backIcon = new ImageIcon("data\\icons\\backbutton.png");
+        JButton returnButton = new JButton(backIcon);
         returnButton.addActionListener(new ActionListener() {
             // EFFECT: receives an action from mastername page and changes title
             public void actionPerformed(ActionEvent e) {
@@ -630,6 +641,8 @@ public class TaskApp {
 
         System.out.println("session has ended");
     }
+
+
 }
 
 

@@ -64,7 +64,7 @@ public class TaskApp {
         JButton newButton = new JButton("Create a new Master Task");
         newButton.addActionListener(this::newMasterEvent);
 
-        JButton loadButton = new JButton("Reload a Master Task");
+        JButton loadButton = new JButton("Reload your previous Master Task");
 
         loadButton.addActionListener(this::loadMasterTask);
 
@@ -102,7 +102,7 @@ public class TaskApp {
         }
     }
 
-    //
+    // EFFECT: displays no data page from home -> load
     public void noDataPage() {
         resetPage();
         JLabel heading = new JLabel("File was not found");

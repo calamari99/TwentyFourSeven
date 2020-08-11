@@ -27,17 +27,17 @@ I have taken ispiration from my a few of my favorite tools, Slack and Asana, and
 - as a user, I want to be able to reload my saved MasterTask into interface
 
 ### Stage 3:
-- as a user, I want to be able to use to GUI to create a master task
-  - and add / delete subtasks
-  - view subtasks
-  - 
+
   
 ### Instructions for Grader:
 - Clicking the button "Create a new master task" generates a new master task from scratch
-  - User is then prompted to enter a name for his/her master task, pressing enter/clicking submit will save the master task
+  - User is then prompted to enter a name for his/her master task 
+  - pressing enter/clicking submit will save the master task automatically
   - User can add/remove subtasks to his master task and view the tasks assigned
-  - 
   
-- Clicking the button "Reload a master task" loads the previously saved task from JSON file stored
-  - 
+- My application saves automatically to user input so there is no designated "save" button
+- You can reload the state of my application by clicking the button "Reload a master task" 
+  - if no previous JSON file is located, user will be prompted to return to home menu
+
+- You can locate my visual component through out the app as the background and icons are set to images
 

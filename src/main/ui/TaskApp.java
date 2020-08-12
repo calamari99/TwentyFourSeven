@@ -39,7 +39,7 @@ public class TaskApp {
     JFrame frame;
     JPanel panel;
 
-    // EFFECT: initializes gui
+    // EFFECT: initializes ui.gui
     public void guiApp() {
         panel = new JPanel();
         frame = new JFrame();

@@ -42,18 +42,7 @@ public class TaskApp {
     // EFFECT: initializes ui.gui
     public void guiApp() {
         panel = new JPanel();
-        frame = new JFrame();
-        frame.pack();
-        frame.setSize(600, 650);
-        frame.setContentPane(new JLabel(new ImageIcon("data\\icons\\cherryblossoms2.jpg")));
 
-        panelSetUp();
-
-        frame.add(panel, BorderLayout.CENTER);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("TwentyFour7");
-        frame.setVisible(true);
     }
 
     private void panelSetUp() {

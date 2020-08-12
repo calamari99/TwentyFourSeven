@@ -39,10 +39,21 @@ public class TaskApp {
     JFrame frame;
     JPanel panel;
 
-    // EFFECT: initializes ui.gui
+    // EFFECT: initializes gui
     public void guiApp() {
         panel = new JPanel();
+        frame = new JFrame();
+        frame.pack();
+        frame.setSize(600, 650);
+        frame.setContentPane(new JLabel(new ImageIcon("data\\icons\\cherryblossoms2.jpg")));
 
+        panelSetUp();
+
+        frame.add(panel, BorderLayout.CENTER);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("TwentyFour7");
+        frame.setVisible(true);
     }
 
     private void panelSetUp() {
@@ -240,6 +251,7 @@ public class TaskApp {
     // REQUIRES: clicked from any page but the noDataPage
     // EFFECT: When return button clicked, prompt master menu
     private void returnButtonDelete() {
+
         ImageIcon backIcon = new ImageIcon("data\\icons\\backbutton.png");
         JButton returnButton = new JButton(backIcon);
         returnButton.addActionListener(new ActionListener() {

@@ -44,7 +44,7 @@ I have taken ispiration from my a few of my favorite tools, Slack and Asana, and
 ### Stage 4: 
 - I had previously refactored most of my work as I was working along in my project. In my model package, the Subtask extends MasterTask and inherits its functions and fields. I did this in phase 1 to keep a hierarchy within the data structure which was implemented in phase 3. I also refactored my "assignedPerson" list to a HashSet in the SubTask Class in phase 1 to make use of a Set rather than a Collection to avoid duplication.
 
-- I decided to place all data saving and reloading components into the UI section because with the added GSON library it was easier to control inside the TaskApp Class as the only saving and loading accessed would be for the Application itself. Creating a separate saveable interface and data/save classes would have been menial. Navigation within the TaskApp was displayed with updating the JFrame and Jpanel rather than creating new Panel's within each method so I chose to leave the pages inside the TaskApp class.
+- I decided to place all data saving and reloading components into the UI section because with the added GSON library it was easier to control inside the TaskApp Class as the only saving and loading accessed would be for the Application itself. Creating a separate saveable interface and data/save classes would have been menial. Navigation within the TaskApp was displayed with updating the JFrame and Jpanel rather than creating new Panel's within each method so I chose to leave the pages inside the TaskApp class as "refactoring" would introduce much more coding and a different structure altogether.
 
 
 

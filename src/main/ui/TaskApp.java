@@ -7,6 +7,7 @@ import model.MasterTask;
 import model.Person;
 import model.SubTask;
 
+import javax.naming.InvalidNameException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -30,10 +31,10 @@ public class TaskApp {
     public String stringMasterTask;
     public NewMasterPage initNewPage;
 
-    // EFFECTS: runs the task app
+    // EFFECTS: runs the app, gui and console
     public TaskApp() {
         guiApp();
-        runTaskApp();
+        //runTaskApp();
     }
 
     JFrame frame;
@@ -65,9 +66,7 @@ public class TaskApp {
         newButton.addActionListener(this::newMasterEvent);
 
         JButton loadButton = new JButton("Reload your previous Master Task");
-
         loadButton.addActionListener(this::loadMasterTask);
-
 
         panel.setBorder(BorderFactory.createEmptyBorder(
                 50, 110, 50, 110
@@ -154,7 +153,12 @@ public class TaskApp {
 
     // EFFECT: displays master menu option with buttons to other pages
     public void initMasterPage() {
-        JLabel heading = new JLabel(initMasterTask.getTitle());
+        JLabel heading = null;
+        try {
+            heading = new JLabel(initMasterTask.getTitle());
+        } catch (InvalidNameException e) {
+            e.printStackTrace();
+        }
         heading.setHorizontalAlignment(JLabel.CENTER);
         resetPage();
         JButton createButton = new JButton("Create a Subtask");
@@ -474,7 +478,11 @@ public class TaskApp {
     // EFFECT: Returns master title from saved file if present, otherwise user input
     private String chooseMasterTitle() {
         if (this.masterTitle == null) {
-            return initMasterTask.getTitle();
+            try {
+                return initMasterTask.getTitle();
+            } catch (InvalidNameException e) {
+                return "invalid name";
+            }
         } else {
             return masterTitle;
         }
@@ -639,7 +647,6 @@ public class TaskApp {
             // read json file
             JsonReader reader = new JsonReader(new FileReader(ACCOUNTS_FILE));
             this.initMasterTask = gson.fromJson(reader, MasterTask.class);
-            System.out.println(initMasterTask.getTitle() + " has been loaded from stored file");
             reader.close();
         } catch (IOException e) {
             while (this.keepGoing) {

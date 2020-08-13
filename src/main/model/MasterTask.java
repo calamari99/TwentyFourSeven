@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import model.SubTask;
 
+import javax.naming.InvalidNameException;
 import java.io.File;
 import java.io.FileReader;
 import java.text.SimpleDateFormat;
@@ -84,8 +85,14 @@ public class MasterTask {
     }
 
     // EFFECTS: returns task title
-    public String getTitle() {
-        return projectTitle;
+    public String getTitle() throws InvalidNameException {
+        String stub = "Invalid Name";
+        if (this.projectTitle.matches("[0-9]+") || this.projectTitle.length() <= 2) {
+            this.projectTitle = stub;
+            throw new InvalidNameException("Invalid title was entered");
+        } else {
+            return projectTitle;
+        }
     }
 
     // EFFECTS: returns project details

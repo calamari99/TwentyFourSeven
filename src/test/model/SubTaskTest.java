@@ -2,6 +2,9 @@ package model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import javax.naming.InvalidNameException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -21,7 +24,7 @@ public class SubTaskTest {
     }
 
     @Test
-    void testSubTaskConstructor() {
+    void testSubTaskConstructor() throws InvalidNameException {
         assertEquals(subTask1.getTitle(),"");
         assertEquals(subTask2.getTitle(),"test");
 /*

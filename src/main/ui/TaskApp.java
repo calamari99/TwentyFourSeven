@@ -29,7 +29,6 @@ public class TaskApp {
     public String prevSubTitle;
     Boolean keepGoing = true;
     public String stringMasterTask;
-    public NewMasterPage initNewPage;
 
     // EFFECTS: runs the app, gui and console
     public TaskApp() {

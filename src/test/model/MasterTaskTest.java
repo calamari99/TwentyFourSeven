@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import javax.naming.InvalidNameException;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MasterTaskTest {
@@ -13,21 +15,31 @@ class MasterTaskTest {
     MasterTask testTask2;
     MasterTask testTask3;
     MasterTask testTask4;
+    MasterTask testTask5;
+
+
     SubTask subTask1;
     SubTask subTask2;
+    SubTask subTask3;
+
+
 
     @BeforeEach
     void runBefore() {
         testTask1 = new MasterTask("hello");
         testTask2 = new MasterTask("testingMasterTask");
-        testTask3 = new MasterTask("");
-        testTask4 = new MasterTask("12345");
+        testTask3 = new MasterTask("");      // not allowed
+        testTask4 = new MasterTask("12345"); // not allowed
+        testTask5 = new MasterTask("ad123"); // allowed
+
         subTask1 = new SubTask("sub1");
         subTask2 = new SubTask("sub2");
+        subTask3 = new SubTask("");
+
     }
 
     @Test
-    void testMasterTaskConstructor() throws InvalidNameException {
+    void testMasterTaskConstructorAndNoException() throws InvalidNameException {
         assertEquals(testTask1.getTitle(),"hello");
         assertEquals(testTask2.getTitle(),"testingMasterTask");
     }
@@ -40,9 +52,8 @@ class MasterTaskTest {
             testTask3.getTitle();
             fail("Exception was not thrown");
         } catch (InvalidNameException e) {
-            // everything went well
+            assertEquals(testTask3.getTitle(),"Invalid Name");
         }
-        assertEquals(testTask3.getTitle(),"Invalid Name");
     }
 
     @Test
@@ -53,9 +64,9 @@ class MasterTaskTest {
             testTask4.getTitle();
             fail("Exception was not thrown");
         } catch (InvalidNameException e) {
-            // everything went well
+            assertEquals(testTask4.getTitle(),"Invalid Name");
         }
-        assertEquals(testTask4.getTitle(),"Invalid Name");
+
     }
 
     @Test
@@ -86,6 +97,27 @@ class MasterTaskTest {
     void testGetSubNames() {
         testTask2.addSubTask(subTask1);
         testTask2.addSubTask(subTask2);
-        assertEquals(testTask2.getSubNames()," sub1 sub2");
+        assertEquals(testTask2.getSubNames(),"SubTasks: sub1 sub2");
+    }
+
+    @Test
+    void testIndexSubNames() {
+        testTask2.addSubTask(subTask1);
+        testTask2.addSubTask(subTask2);
+        assertEquals(testTask2.indexSubNames(),
+                "SubTasks: (1.) sub1 (2.) sub2");
+
+        testTask1.addSubTask(subTask1);
+        assertEquals(testTask1.indexSubNames(), "SubTasks: (1.) sub1");
+
+        testTask3.addSubTask(subTask3);
+        assertEquals(testTask3.indexSubNames(), "SubTasks: (1.) ");
+    }
+
+    @Test
+    void testGetAssignedTasks() {
+        testTask2.addSubTask(subTask1);
+        testTask2.addSubTask(subTask2);
+        assertEquals(testTask2.getAssignedTasks(),testTask2.assignedTasks);
     }
 }

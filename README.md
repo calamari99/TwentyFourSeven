@@ -1,4 +1,4 @@
-# TwentyFour7 
+# CPSC210 Project: TwentyFour7 
 
 TwentyFour7 is a simple planner for team projects. This system is designed for team leads who are looking to structure task assignments and build a roadmap in creating longterm plans for the team.
 
